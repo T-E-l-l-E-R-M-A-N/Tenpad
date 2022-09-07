@@ -1,0 +1,135 @@
+﻿<UserControl x:Class="Tenpad.Core.Views.BrowsePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tenpad.Core.Views"
+             xmlns:handy="clr-namespace:HandyControl.Controls;assembly=HandyControl"
+             xmlns:core="clr-namespace:Tenpad.Core"
+             xmlns:valueConverters="clr-namespace:Tenpad.Core.ValueConverters"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel LastChildFill="True"
+               Margin="0,0,0,30">
+        <Border Background="LightGray"
+                Width="207">
+            <Grid>
+                <Rectangle Width="1"
+                           HorizontalAlignment="Right"
+                           Fill="Gray"/>
+                <TextBlock Text="Choose .Txt to open"/>
+            </Grid>
+        </Border>
+        <DockPanel LastChildFill="True">
+            <Border Background="Black"
+                    Height="50"
+                    DockPanel.Dock="Bottom">
+                <DockPanel LastChildFill="True"
+                           Height="30">
+                    <StackPanel Orientation="Horizontal"
+                                DockPanel.Dock="Right"
+                                Margin="10,0">
+                        <Button Width="50"
+                                Margin="0,0,5,0">
+                            <Image Margin="-2">
+                                <Image.Source>
+                                    <DrawingImage>
+                                        <DrawingImage.Drawing>
+                                            <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M16,16z M0,0z M12.736,3.97A0.733,0.733,0,0,1,13.783,3.97C14.069,4.259,14.073,4.726,13.793,5.02L7.88,12.01A0.733,0.733,0,0,1,6.815,12.03L3.217,8.384A0.757,0.757,0,0,1,3.217,7.324A0.733,0.733,0,0,1,4.264,7.324L7.316,10.417 12.716,3.992A0.247,0.247,0,0,1,12.736,3.97z" />
+                                            </DrawingGroup>
+                                        </DrawingImage.Drawing>
+                                    </DrawingImage>
+                                </Image.Source>
+                            </Image>
+                        </Button>
+                        <Button Width="50">
+                            <Image Margin="-4">
+                                <Image.Source>
+                                    <DrawingImage>
+                                        <DrawingImage.Drawing>
+                                            <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M16,16z M0,0z M4.646,4.646A0.5,0.5,0,0,1,5.354,4.646L8,7.293 10.646,4.646A0.5,0.5,0,0,1,11.354,5.354L8.707,8 11.354,10.646A0.5,0.5,0,0,1,10.646,11.354L8,8.707 5.354,11.354A0.5,0.5,0,0,1,4.646,10.646L7.293,8 4.646,5.354A0.5,0.5,0,0,1,4.646,4.646z" />
+                                            </DrawingGroup>
+                                        </DrawingImage.Drawing>
+                                    </DrawingImage>
+                                </Image.Source>
+                            </Image>
+                        </Button>
+                    </StackPanel>
+                    <TextBox Text="{Binding Header}"
+                             Margin="20,0"
+                             VerticalContentAlignment="Center"/>
+                </DockPanel>
+            </Border>
+            <Border Background="Black"
+                    DockPanel.Dock="Top"
+                    Height="50">
+                <DockPanel LastChildFill="True"
+                           Height="30"
+                           Background="AliceBlue">
+                    <StackPanel Orientation="Horizontal"
+                                DockPanel.Dock="Left">
+                        <Button Width="50"
+                                Command="{Binding GoBackCommand}">
+                            <Image Margin="-5">
+                                <Image.Source>
+                                    <DrawingImage>
+                                        <DrawingImage.Drawing>
+                                            <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                                <GeometryDrawing Brush="#FF000000" Geometry="F0 M16,16z M0,0z M12,8A0.5,0.5,0,0,1,11.5,8.5L5.707,8.5 7.854,10.646A0.5,0.5,0,0,1,7.146,11.354L4.146,8.354A0.5,0.5,0,0,1,4.146,7.646L7.146,4.646A0.5,0.5,0,1,1,7.854,5.354L5.707,7.5 11.5,7.5A0.5,0.5,0,0,1,12,8z" />
+                                            </DrawingGroup>
+                                        </DrawingImage.Drawing>
+                                    </DrawingImage>
+                                </Image.Source>
+                            </Image>
+                        </Button>
+                        <Button Width="50"
+                                Margin="5,0,0,0"
+                                Command="{Binding GoForwardCommand}">
+                            <Image Margin="-5">
+                                <Image.Source>
+                                    <DrawingImage>
+                                        <DrawingImage.Drawing>
+                                            <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                                <GeometryDrawing Brush="#FF000000" Geometry="F0 M16,16z M0,0z M4,8A0.5,0.5,0,0,1,4.5,7.5L10.293,7.5 8.146,5.354A0.5,0.5,0,1,1,8.854,4.646L11.854,7.646A0.5,0.5,0,0,1,11.854,8.354L8.854,11.354A0.5,0.5,0,0,1,8.146,10.646L10.293,8.5 4.5,8.5A0.5,0.5,0,0,1,4,8z" />
+
+                                            </DrawingGroup>
+                                        </DrawingImage.Drawing>
+                                    </DrawingImage>
+                                </Image.Source>
+                            </Image>
+                        </Button>
+                    </StackPanel>
+                    <TextBox Text="{Binding Path}"
+                             Margin="20,0"
+                             VerticalContentAlignment="Center"/>
+                </DockPanel>
+            </Border>
+            <ListBox ItemsSource="{Binding DirectoriesAndFiles}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Width="70">
+                            <Image Width="30"
+                                   Height="30" Source="{Binding Type, Converter={valueConverters:FileSystemModelTypeToDrawingImageSourceConverter}}">
+                            </Image>
+                            <TextBlock Margin="0,5,0,0"
+                                       TextAlignment="Center"
+                                       Text="{Binding Name}"/>
+                            <TextBlock Margin="0,5,0,0"
+                                       TextAlignment="Center"
+                                       Text="{Binding Extension}"
+                                       Opacity="0.5"
+                                       FontSize="10"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+        </DockPanel>
+    </DockPanel>
+</UserControl>

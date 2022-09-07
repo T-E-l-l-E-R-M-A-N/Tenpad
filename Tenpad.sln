@@ -3,9 +3,49 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32802.440
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0B737099-2D3F-44C1-B168-6D876B500DF9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{6F678CE1-B18F-493D-B17B-371FC57E8E9A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{2A4EE272-0D49-42EC-9056-942BEC987CF7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenpad", "src\UI\Tenpad\Tenpad.csproj", "{45116145-9A32-409B-8424-6E24E5313647}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenpad.Core", "src\Core\Tenpad.Core\Tenpad.Core.csproj", "{A26BFCA8-C024-47B7-8BD8-AE54BB517E2C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{81820BF1-68F0-4F22-99F9-8874327CF975}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenpad.Database", "src\Core\Tenpad.Database\Tenpad.Database.csproj", "{A86A793A-77DB-4EA0-BCEA-800C9FA0DDA3}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45116145-9A32-409B-8424-6E24E5313647}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45116145-9A32-409B-8424-6E24E5313647}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45116145-9A32-409B-8424-6E24E5313647}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45116145-9A32-409B-8424-6E24E5313647}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A26BFCA8-C024-47B7-8BD8-AE54BB517E2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A26BFCA8-C024-47B7-8BD8-AE54BB517E2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A26BFCA8-C024-47B7-8BD8-AE54BB517E2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A26BFCA8-C024-47B7-8BD8-AE54BB517E2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A86A793A-77DB-4EA0-BCEA-800C9FA0DDA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A86A793A-77DB-4EA0-BCEA-800C9FA0DDA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A86A793A-77DB-4EA0-BCEA-800C9FA0DDA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A86A793A-77DB-4EA0-BCEA-800C9FA0DDA3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6F678CE1-B18F-493D-B17B-371FC57E8E9A} = {0B737099-2D3F-44C1-B168-6D876B500DF9}
+		{2A4EE272-0D49-42EC-9056-942BEC987CF7} = {0B737099-2D3F-44C1-B168-6D876B500DF9}
+		{45116145-9A32-409B-8424-6E24E5313647} = {6F678CE1-B18F-493D-B17B-371FC57E8E9A}
+		{A26BFCA8-C024-47B7-8BD8-AE54BB517E2C} = {2A4EE272-0D49-42EC-9056-942BEC987CF7}
+		{81820BF1-68F0-4F22-99F9-8874327CF975} = {2A4EE272-0D49-42EC-9056-942BEC987CF7}
+		{A86A793A-77DB-4EA0-BCEA-800C9FA0DDA3} = {81820BF1-68F0-4F22-99F9-8874327CF975}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E98CD887-81FB-4904-8B58-1D5D88C9F3EB}

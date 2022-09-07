@@ -1,0 +1,33 @@
+﻿<Application x:Class="Tenpad.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Tenpad"
+             xmlns:hc="https://handyorg.github.io/handycontrol">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <hc:ThemeResources/>
+                <hc:Theme/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <DrawingImage x:Key="DirectoryIconDrawingImage">
+                <DrawingImage.Drawing>
+                    <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                        <GeometryDrawing Brush="DodgerBlue" Geometry="F1 M16,16z M0,0z M9.828,3L13.81,3A2,2,0,0,1,15.802,5.181L15.165,12.181A2,2,0,0,1,13.174,14L2.825,14A2,2,0,0,1,0.834,12.181L0.197,5.181A1.99,1.99,0,0,1,0.539,3.871L0.5,3A2,2,0,0,1,2.5,1L6.172,1A2,2,0,0,1,7.586,1.586L8.414,2.414A2,2,0,0,0,9.828,3z M1.506,3.12C1.72,3.042,1.95,3,2.19,3L7.586,3 6.879,2.293A1,1,0,0,0,6.172,2L2.5,2A1,1,0,0,0,1.5,2.981L1.506,3.12z" />
+                    </DrawingGroup>
+                </DrawingImage.Drawing>
+            </DrawingImage>
+
+            <DrawingImage x:Key="DocumentIconDrawingImage">
+                <DrawingImage.Drawing>
+                    <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                        <GeometryDrawing Brush="BlanchedAlmond" Geometry="F1 M16,16z M0,0z M10.943,4L5.057,4 5,6 5.5,6C5.68,4.904,5.856,4.808,7.194,4.765L7.487,4.755 7.487,10.845C7.487,11.315,7.387,11.427,6.589,11.5L6.589,12 9.41,12 9.41,11.5C8.607,11.427,8.507,11.316,8.507,10.846L8.507,4.755 8.805,4.765C10.143,4.808,10.319,4.905,10.499,6L10.999,6 10.942,4z" />
+                        <GeometryDrawing Brush="BlanchedAlmond" Geometry="F1 M16,16z M0,0z M4,0A2,2,0,0,0,2,2L2,14A2,2,0,0,0,4,16L12,16A2,2,0,0,0,14,14L14,2A2,2,0,0,0,12,0L4,0z M4,1L12,1A1,1,0,0,1,13,2L13,14A1,1,0,0,1,12,15L4,15A1,1,0,0,1,3,14L3,2A1,1,0,0,1,4,1z" />
+                    </DrawingGroup>
+                </DrawingImage.Drawing>
+            </DrawingImage>
+        </ResourceDictionary>
+
+
+    </Application.Resources>
+</Application>
