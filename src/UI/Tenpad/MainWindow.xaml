@@ -1,15 +1,78 @@
-﻿<handy:Window x:Class="Tenpad.MainWindow"
+﻿<Window x:Class="Tenpad.MainWindow"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
               xmlns:local="clr-namespace:Tenpad"
-              xmlns:handy="clr-namespace:HandyControl.Controls;assembly=HandyControl"
+              AllowsTransparency="True"
+              WindowStyle="None"
+              Background="Transparent"
               xmlns:views="clr-namespace:Tenpad.Core.Views;assembly=Tenpad.Core"
               mc:Ignorable="d"
-              Background="#55000000"
-               ShowTitle="False"
-              Title="MainWindow" Height="450" Width="800"
->
-    <views:MainView Margin="0,0,-0,0" Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type handy:Window}}}"/>
-</handy:Window>
+              Title="MainWindow" Height="450" Width="800">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="30"/>
+    </WindowChrome.WindowChrome>
+    <Grid Background="#AF000000">
+        <views:MainView/>
+        <StackPanel HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Height="32"
+                    WindowChrome.IsHitTestVisibleInChrome="True"
+                        Orientation="Horizontal">
+            <Button Width="46"
+                Style="{DynamicResource WindowControlBoxButtonStyle}">
+                <Image Margin="5">
+                    <Image.Source>
+                        <DrawingImage >
+                            <DrawingImage.Drawing>
+                                <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                    <DrawingGroup.Transform>
+                                        <TranslateTransform X="0" Y="7.9891151472111233E-07" />
+                                    </DrawingGroup.Transform>
+                                    <GeometryDrawing Brush="#FFFFFF" Geometry="F1 M16,16z M0,0z M4,8A0.5,0.5,0,0,1,4.5,7.5L11.5,7.5A0.5,0.5,0,0,1,11.5,8.5L4.5,8.5A0.5,0.5,0,0,1,4,8z" />
+                                </DrawingGroup>
+                            </DrawingImage.Drawing>
+                        </DrawingImage>
+                    </Image.Source>
+                </Image>
+            </Button>
+            <Button Width="46"
+                    Style="{DynamicResource WindowControlBoxButtonStyle}">
+                <Image Margin="10">
+                    <Image.Source>
+                        <DrawingImage >
+                            <DrawingImage.Drawing>
+                                <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                    <DrawingGroup.Transform>
+                                        <TranslateTransform X="0" Y="7.9891151472111233E-07" />
+                                    </DrawingGroup.Transform>
+                                    <GeometryDrawing Brush="#FFFFFF" Geometry="F1 M16,16z M0,0z M14,1A1,1,0,0,1,15,2L15,14A1,1,0,0,1,14,15L2,15A1,1,0,0,1,1,14L1,2A1,1,0,0,1,2,1L14,1z M2,0A2,2,0,0,0,0,2L0,14A2,2,0,0,0,2,16L14,16A2,2,0,0,0,16,14L16,2A2,2,0,0,0,14,0L2,0z" />
+                                </DrawingGroup>
+                            </DrawingImage.Drawing>
+                        </DrawingImage>
+                    </Image.Source>
+                </Image>
+            </Button>
+            <Button Width="46" Style="{DynamicResource WindowControlBoxCloseButtonStyle}">
+                <Image Margin="4">
+                    <Image.Source>
+                        <DrawingImage >
+                            <DrawingImage.Drawing>
+                                <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                    <DrawingGroup.Transform>
+                                        <TranslateTransform X="0" Y="7.9891151472111233E-07" />
+                                    </DrawingGroup.Transform>
+                                    <GeometryDrawing Brush="#FFFFFF" Geometry="F1 M16,16z M0,0z M4.646,4.646A0.5,0.5,0,0,1,5.354,4.646L8,7.293 10.646,4.646A0.5,0.5,0,0,1,11.354,5.354L8.707,8 11.354,10.646A0.5,0.5,0,0,1,10.646,11.354L8,8.707 5.354,11.354A0.5,0.5,0,0,1,4.646,10.646L7.293,8 4.646,5.354A0.5,0.5,0,0,1,4.646,4.646z" />
+                                </DrawingGroup>
+                            </DrawingImage.Drawing>
+                        </DrawingImage>
+                    </Image.Source>
+                </Image>
+            </Button>
+        </StackPanel>
+        <Border BorderThickness="1"
+                BorderBrush="#77888888"></Border>
+    </Grid>
+</Window>

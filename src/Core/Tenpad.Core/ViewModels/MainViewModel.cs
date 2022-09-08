@@ -17,6 +17,7 @@ namespace Tenpad.Core
         private readonly ITabViewModelFactory _tabViewModelFactory;
         private readonly IPageViewModelFactory _pageViewModelFactory;
         private readonly TenpadDbContext _tenpadDbContext;
+        private bool _isLeftTabStripEnabled;
 
         #endregion
 
@@ -26,6 +27,37 @@ namespace Tenpad.Core
             new();
 
         public ITabItemViewModel SelectedTabItemViewModel { get; set; }
+
+        public bool IsLeftTabStripEnabled
+        {
+            get => _tenpadDbContext != null 
+                   && _tenpadDbContext.Data.FirstOrDefault(x => x.Id == "system_applocal_tenpad_userdata_data_settings_isLeftTabStripIsEnabled") != null
+                ? bool.Parse(_tenpadDbContext.Data.FirstOrDefault(x => x.Id == "system_applocal_tenpad_userdata_data_settings_isLeftTabStripIsEnabled").Content) 
+                : _isLeftTabStripEnabled;
+            set
+            {
+                _isLeftTabStripEnabled = value;
+                var dOM = new Tenpad
+                    .Database
+                    .DataObjectModel(
+                        "system_applocal_tenpad_userdata_data_settings_isLeftTabStripIsEnabled",
+                        $"{value}");
+
+                if (_tenpadDbContext.Data.FirstOrDefault(x => x.Id == "system_applocal_tenpad_userdata_data_settings_isLeftTabStripIsEnabled") == null)
+                {
+                    _tenpadDbContext.Data.Add(dOM);
+                }
+                else
+                {
+                    _tenpadDbContext.Data.Update(dOM);
+                }
+                
+
+                _tenpadDbContext.SaveChanges();
+                OnPropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Constructor

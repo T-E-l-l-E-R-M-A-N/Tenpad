@@ -60,7 +60,7 @@ namespace Tenpad.Core
             _mainViewModel = mainViewModel;
             _parentTabItemViewModel = tabItemViewModel as DefaultTabViewModel;
         }
-        public async void LoadDocument(FileViewModel fileViewModel)
+        public void LoadDocument(FileViewModel fileViewModel)
         {
             var d = new DocumentViewModel(fileViewModel.Info as FileInfo);
             d.Init(fileViewModel.Info as FileInfo);
@@ -68,25 +68,32 @@ namespace Tenpad.Core
             ActiveDocument = d;
             try
             {
-                DocumentContent = (ActiveDocument as DocumentViewModel).Content;
+                using (var stream = File.OpenRead(d.FullName))
+                {
+                    var reader = new StreamReader(stream);
+                    DocumentContent = reader.ReadToEnd();
+                }
+                
+                _parentTabItemViewModel.Header = Header = $"{ActiveDocument.Name} | Editor";
             }
             catch (Exception e)
             {
-                if (HandyControl.Controls.MessageBox.Show(e.Message, "Error read document",
+                if (MessageBox.Show(e.Message, "Error read document",
                     MessageBoxButton.YesNoCancel) == MessageBoxResult.Yes)
                 {
                     //_parentTabItemViewModel.NavigateToPage();
                 }
+                _parentTabItemViewModel.Header = Header = "Empty | Editor";
             }
-            Header = $"{ActiveDocument.Name} | Editor";
+            
         }
         public void CreateDocument()
         {
-            int d = rand.Next(5400);
-            File.Create($"{LocalTenpadUserDataDirectoryPath}\\blank_document{d}.ild");
-            var model = _fileSystemModelFactory.GetNewFileSystemModelItem(FileSystemModelType.File,
-                new FileInfo($"{LocalTenpadUserDataDirectoryPath}\\blank_document{d}.ild")) as FileViewModel;
-            LoadDocument(model);
+            var d = rand.Next(5000);
+            File.CreateText($"{LocalTenpadUserDataDirectoryPath}\\{d}_blank_.txt").Close();
+            DocumentContent = new StreamReader(File.OpenRead($"{LocalTenpadUserDataDirectoryPath}\\{d}_blank_.txt")).ReadToEnd();
+            ActiveDocument = new DocumentViewModel(new FileInfo($"{LocalTenpadUserDataDirectoryPath}\\{d}_blank_.txt"));
+            _parentTabItemViewModel.Header = Header = $"Blank Document | Editor";
         }
 
         #endregion

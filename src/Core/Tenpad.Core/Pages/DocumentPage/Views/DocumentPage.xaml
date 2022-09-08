@@ -4,8 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Tenpad.Core.Views"
-             xmlns:ht="clr-namespace:HandyControl.Themes;assembly=HandyControl"
-             xmlns:handy="clr-namespace:HandyControl.Controls;assembly=HandyControl"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -13,11 +11,11 @@
                  HorizontalScrollBarVisibility="Auto"
                  VerticalScrollBarVisibility="Visible"
                  VerticalContentAlignment="Top"
-                       Margin="0,75,0,0"
+                       Margin="0,0,0,0"
                        BorderThickness="0"
                        Text="{Binding DocumentContent, Mode=TwoWay}"/>
         <Border Background="Black"
-                Height="70"
+                Height="0"
                 VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal"
                         Margin="10">

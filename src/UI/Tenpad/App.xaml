@@ -5,15 +5,15 @@
              xmlns:hc="https://handyorg.github.io/handycontrol">
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <hc:ThemeResources/>
-                <hc:Theme/>
-            </ResourceDictionary.MergedDictionaries>
-
             <DrawingImage x:Key="DirectoryIconDrawingImage">
                 <DrawingImage.Drawing>
                     <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
-                        <GeometryDrawing Brush="DodgerBlue" Geometry="F1 M16,16z M0,0z M9.828,3L13.81,3A2,2,0,0,1,15.802,5.181L15.165,12.181A2,2,0,0,1,13.174,14L2.825,14A2,2,0,0,1,0.834,12.181L0.197,5.181A1.99,1.99,0,0,1,0.539,3.871L0.5,3A2,2,0,0,1,2.5,1L6.172,1A2,2,0,0,1,7.586,1.586L8.414,2.414A2,2,0,0,0,9.828,3z M1.506,3.12C1.72,3.042,1.95,3,2.19,3L7.586,3 6.879,2.293A1,1,0,0,0,6.172,2L2.5,2A1,1,0,0,0,1.5,2.981L1.506,3.12z" />
+                        <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                            <DrawingGroup.Transform>
+                                <TranslateTransform X="0" Y="7.9891151472111233E-07" />
+                            </DrawingGroup.Transform>
+                            <GeometryDrawing Brush="DodgerBlue" Geometry="F1 M16,16z M0,0z M1,3.5A1.5,1.5,0,0,1,2.5,2L5.264,2C6.222,2 7.024,2.56 7.575,3.184 7.985,3.648 8.48,4 9,4L13.5,4A1.5,1.5,0,0,1,15,5.5L15,12.5A1.5,1.5,0,0,1,13.5,14L2.5,14A1.5,1.5,0,0,1,1,12.5L1,3.5z M2.5,3A0.5,0.5,0,0,0,2,3.5L2,6 14,6 14,5.5A0.5,0.5,0,0,0,13.5,5L9,5C8.036,5 7.29,4.371 6.826,3.846 6.374,3.334 5.82,3 5.264,3L2.5,3z M14,7L2,7 2,12.5A0.5,0.5,0,0,0,2.5,13L13.5,13A0.5,0.5,0,0,0,14,12.5L14,7z" />
+                        </DrawingGroup>
                     </DrawingGroup>
                 </DrawingImage.Drawing>
             </DrawingImage>
@@ -21,11 +21,423 @@
             <DrawingImage x:Key="DocumentIconDrawingImage">
                 <DrawingImage.Drawing>
                     <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
-                        <GeometryDrawing Brush="BlanchedAlmond" Geometry="F1 M16,16z M0,0z M10.943,4L5.057,4 5,6 5.5,6C5.68,4.904,5.856,4.808,7.194,4.765L7.487,4.755 7.487,10.845C7.487,11.315,7.387,11.427,6.589,11.5L6.589,12 9.41,12 9.41,11.5C8.607,11.427,8.507,11.316,8.507,10.846L8.507,4.755 8.805,4.765C10.143,4.808,10.319,4.905,10.499,6L10.999,6 10.942,4z" />
-                        <GeometryDrawing Brush="BlanchedAlmond" Geometry="F1 M16,16z M0,0z M4,0A2,2,0,0,0,2,2L2,14A2,2,0,0,0,4,16L12,16A2,2,0,0,0,14,14L14,2A2,2,0,0,0,12,0L4,0z M4,1L12,1A1,1,0,0,1,13,2L13,14A1,1,0,0,1,12,15L4,15A1,1,0,0,1,3,14L3,2A1,1,0,0,1,4,1z" />
+                        <GeometryDrawing Brush="LimeGreen" Geometry="F0 M16,16z M0,0z M14,4.5L14,14A2,2,0,0,1,12,16L8,16 8,15 12,15A1,1,0,0,0,13,14L13,4.5 11,4.5A1.5,1.5,0,0,1,9.5,3L9.5,1 4,1A1,1,0,0,0,3,2L3,11 2,11 2,2A2,2,0,0,1,4,0L9.5,0 14,4.5z M3.629,15.29A1.176,1.176,0,0,1,3.517,14.841L4.282,14.841A0.578,0.578,0,0,0,4.537,15.225C4.607,15.274 4.69,15.312 4.786,15.339 4.882,15.367 4.988,15.38 5.106,15.38 5.269,15.38 5.407,15.357 5.518,15.31A0.559,0.559,0,0,0,5.773,15.117A0.507,0.507,0,0,0,5.858,14.827A0.387,0.387,0,0,0,5.706,14.501C5.604,14.421,5.45,14.357,5.243,14.308L4.625,14.165A1.72,1.72,0,0,1,4.085,13.951A1.001,1.001,0,0,1,3.735,13.584A1.068,1.068,0,0,1,3.611,13.06C3.611,12.816 3.675,12.603 3.801,12.421 3.929,12.24 4.104,12.099 4.329,11.999 4.554,11.899 4.812,11.85 5.105,11.85 5.41,11.85 5.67,11.9 5.885,12.002 6.101,12.104 6.268,12.241 6.385,12.412 6.505,12.582 6.571,12.771 6.585,12.978L5.835,12.978A0.56,0.56,0,0,0,5.715,12.72A0.624,0.624,0,0,0,5.469,12.539A0.923,0.923,0,0,0,5.099,12.471C4.883,12.471,4.712,12.521,4.587,12.623A0.472,0.472,0,0,0,4.402,13.007C4.402,13.128,4.45,13.227,4.546,13.307A0.97,0.97,0,0,0,4.95,13.482L5.571,13.625C5.788,13.675 5.976,13.745 6.137,13.836 6.297,13.926 6.422,14.046 6.512,14.194 6.602,14.342 6.646,14.529 6.646,14.754 6.646,15.001 6.584,15.22 6.459,15.41A1.216,1.216,0,0,1,5.919,15.849C5.685,15.954,5.399,16.007,5.061,16.007A2.21,2.21,0,0,1,4.396,15.917A1.404,1.404,0,0,1,3.919,15.665A1.13,1.13,0,0,1,3.629,15.29z M0.909,13.06A1.732,1.732,0,0,0,0.806,13.693L0.806,14.188C0.806,14.434,0.84,14.643,0.908,14.815A0.833,0.833,0,0,0,1.207,15.207A0.845,0.845,0,0,0,1.685,15.339A0.86,0.86,0,0,0,2.085,15.251A0.7,0.7,0,0,0,2.358,15.002A0.799,0.799,0,0,0,2.476,14.639L3.24,14.639 3.24,14.715A1.27,1.27,0,0,1,3.015,15.389C2.878,15.582,2.695,15.734,2.464,15.843A1.81,1.81,0,0,1,1.679,16.007C1.319,16.007,1.015,15.935,0.765,15.79A1.424,1.424,0,0,1,0.193,15.164C0.064,14.892,0,14.567,0,14.188L0,13.69C0,13.31,0.065,12.985,0.196,12.711A1.44,1.44,0,0,1,0.768,12.078C1.02,11.93 1.323,11.856 1.678,11.856 1.898,11.856 2.1,11.888 2.285,11.953 2.473,12.015 2.635,12.106 2.775,12.225A1.324,1.324,0,0,1,3.24,13.189L3.24,13.262 2.476,13.262A0.85,0.85,0,0,0,2.356,12.882A0.7,0.7,0,0,0,2.083,12.621A0.803,0.803,0,0,0,1.685,12.524A0.814,0.814,0,0,0,1.21,12.662A0.868,0.868,0,0,0,0.907999999999999,13.06z" />
                     </DrawingGroup>
                 </DrawingImage.Drawing>
             </DrawingImage>
+
+            <Style TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="0"
+                                    Background="{TemplateBinding Background}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    BorderBrush="{TemplateBinding BorderBrush}">
+                                <ContentControl VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"
+                                                Content="{TemplateBinding Content}"
+                                                TextElement.Foreground="{TemplateBinding Foreground}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#88555555"/>
+                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="#55555555"/>
+                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Opacity" Value="0.2"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style TargetType="ToggleButton">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ToggleButton">
+                            <Border CornerRadius="0"
+                                    Background="{TemplateBinding Background}">
+                                <ContentControl VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"
+                                                  Content="{TemplateBinding Content}"
+                                                  TextElement.Foreground="{TemplateBinding Foreground}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#88555555"/>
+                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="#55555555"/>
+                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="Background" Value="#55555555"/>
+                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Opacity" Value="0.2"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="EnterTextBoxStyle" TargetType="TextBox">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border CornerRadius="0"
+                                    Background="{TemplateBinding Background}">
+                                <ScrollViewer VerticalAlignment="Center"
+                                                HorizontalContentAlignment="Left"
+                                                Cursor="IBeam"
+                                                Background="Transparent"
+                                                HorizontalScrollBarVisibility="Disabled"
+                                                VerticalScrollBarVisibility="Disabled"
+                                                x:Name="PART_ContentHost"
+                                                TextElement.Foreground="{TemplateBinding Foreground}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#88555555"/>
+                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                </Trigger>
+                                <Trigger Property="IsFocused" Value="True">
+                                    <Setter Property="Background" Value="#55555555"/>
+                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Opacity" Value="0.2"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="TabListBoxItemStyle" TargetType="ListBoxItem">
+                <Setter Property="MinWidth" Value="60"/>
+                <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListBoxItem">
+                            <Border Background="{TemplateBinding Background}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                Margin="-2,0,0,0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <ToggleButton Width="24"
+                                      Height="24"
+                                      Margin="5,0"
+                                      BorderThickness="0"
+                                      IsChecked="{Binding IsPinned, Mode=TwoWay}">
+                                        <Image Margin="4">
+                                            <Image.Source>
+                                                <DrawingImage >
+                                                    <DrawingImage.Drawing>
+                                                        <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                                            <DrawingGroup.Transform>
+                                                                <TranslateTransform X="0" Y="7.9891151472111233E-07" />
+                                                            </DrawingGroup.Transform>
+                                                            <GeometryDrawing Brush="DimGray" Geometry="F1 M16,16z M0,0z M9.828,0.722A0.5,0.5,0,0,1,10.182,0.868L15.132,5.818A0.5,0.5,0,0,1,15.132,6.525C14.652,7.005 14.06,7.113 13.629,7.113 13.452,7.113 13.294,7.095 13.169,7.074L10.035,10.208A5.927,5.927,0,0,1,10.195,11.221C10.241,11.923,10.163,12.908,9.475,13.596A0.5,0.5,0,0,1,8.768,13.596L5.93899999999999,10.768 2.75699999999999,13.95C2.56199999999999,14.145 1.53799999999999,14.852 1.34299999999999,14.657 1.14799999999999,14.462 1.85499999999999,13.437 2.04999999999999,13.243L5.23199999999999,10.061 2.404,7.232A0.5,0.5,0,0,1,2.404,6.525C3.092,5.837,4.07699999999999,5.758,4.77899999999999,5.805A5.922,5.922,0,0,1,5.79199999999999,5.965L8.92599999999999,2.832A2.772,2.772,0,0,1,8.886,2.371C8.886,1.941,8.994,1.349,9.475,0.868000000000002A0.5,0.5,0,0,1,9.828,0.722000000000002z" />
+                                                        </DrawingGroup>
+                                                    </DrawingImage.Drawing>
+                                                </DrawingImage>
+                                            </Image.Source>
+                                        </Image>
+                                    </ToggleButton>
+                                    <Button Command="{Binding CloseTabCommand}"
+                                        Width="24"
+                                        Height="24"
+                                    BorderThickness="0"
+                                    Margin="5,0"
+                                    Grid.Column="2">
+                                        <Image Margin="2">
+                                            <Image.Source>
+                                                <DrawingImage >
+                                                    <DrawingImage.Drawing>
+                                                        <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                                            <GeometryDrawing Brush="DimGray" Geometry="F1 M16,16z M0,0z M4.646,4.646A0.5,0.5,0,0,1,5.354,4.646L8,7.293 10.646,4.646A0.5,0.5,0,0,1,11.354,5.354L8.707,8 11.354,10.646A0.5,0.5,0,0,1,10.646,11.354L8,8.707 5.354,11.354A0.5,0.5,0,0,1,4.646,10.646L7.293,8 4.646,5.354A0.5,0.5,0,0,1,4.646,4.646z" />
+                                                        </DrawingGroup>
+                                                    </DrawingImage.Drawing>
+                                                </DrawingImage>
+                                            </Image.Source>
+                                        </Image>
+                                    </Button>
+                                    <Rectangle Width="1"
+                                           Fill="Gray"
+                                           HorizontalAlignment="Right"
+                                           Grid.Column="2"/>
+                                    <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Grid.Column="1" TextElement.Foreground="{TemplateBinding Foreground}"/>
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="True">
+                                    <Setter Property="Background" Value="Black"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="White"/>
+                                    <Setter Property="Foreground" Value="Black"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Foreground" Value="Gray"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+
+            <Style x:Key="CreateTabButtonStyle" TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="0"
+                                    Background="{TemplateBinding Background}">
+                                <ContentControl VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"
+                                                Content="{TemplateBinding Content}"
+                                                TextElement.Foreground="{TemplateBinding Foreground}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#88FFFFFF"/>
+                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="#55555555"/>
+                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Opacity" Value="0.2"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="TabStripButtonStyle" TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="0"
+                                    Background="{TemplateBinding Background}">
+                                <ContentControl VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"
+                                                Content="{TemplateBinding Content}"
+                                                TextElement.Foreground="{TemplateBinding Foreground}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Width" Value="42"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#88FFFFFF"/>
+                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="#55555555"/>
+                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Width" Value="0"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="TabStripToggleButtonStyle" TargetType="ToggleButton">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ToggleButton">
+                            <Border CornerRadius="0"
+                                    Background="{TemplateBinding Background}">
+                                <ContentControl VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"
+                                                  Content="{TemplateBinding Content}"
+                                                  TextElement.Foreground="{TemplateBinding Foreground}"
+                                                  x:Name="ContentControl"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Width" Value="30"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#88FFFFFF"/>
+                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="#55555555"/>
+                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="ContentControl" Property="RenderTransform">
+                                        <Setter.Value>
+                                            <TransformGroup>
+                                                <RotateTransform Angle="90"
+                                                             CenterX="0.5"
+                                                             CenterY="0.5"/>
+                                                <TranslateTransform X="28"/>
+                                            </TransformGroup>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Opacity" Value="0.2"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="WindowControlBoxButtonStyle" TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="0"
+                                    Background="{TemplateBinding Background}"
+                                    BorderThickness="1"
+                                    BorderBrush="{TemplateBinding BorderBrush}">
+                                <ContentControl VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"
+                                                Content="{TemplateBinding Content}"
+                                                TextElement.Foreground="{TemplateBinding Foreground}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Width" Value="30"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#88FFFFFF"/>
+                                    <Setter Property="BorderBrush" Value="#88888888"/>
+                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="#55555555"/>
+                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Width" Value="0"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="WindowControlBoxCloseButtonStyle" TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="0"
+                                    Background="{TemplateBinding Background}"
+                                    BorderThickness="1"
+                                    BorderBrush="{TemplateBinding BorderBrush}">
+                                <ContentControl VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"
+                                                Content="{TemplateBinding Content}"
+                                                TextElement.Foreground="{TemplateBinding Foreground}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Width" Value="30"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#71800000"/>
+                                    <Setter Property="BorderBrush" Value="#C2800000"/>
+                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="#348B0000"/>
+                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Width" Value="0"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style TargetType="ListBoxItem">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListBoxItem">
+                            <Border CornerRadius="5"
+                                            Background="{TemplateBinding Background}">
+                                <ContentControl Margin="{TemplateBinding Padding}" VerticalAlignment="Center"
+                                            
+                                                        Content="{TemplateBinding Content}"
+                                                        ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#22555555"/>
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="#55555555"/>
+                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Opacity" Value="0.2"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
 
 

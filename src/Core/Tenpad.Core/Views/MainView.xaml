@@ -4,25 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Tenpad.Core.Views"
-             xmlns:handy="clr-namespace:HandyControl.Controls;assembly=HandyControl"
              xmlns:services="clr-namespace:Tenpad.Core.Services"
              xmlns:core="clr-namespace:Tenpad.Core"
              mc:Ignorable="d" 
+             Background="Transparent"
+             Style="{DynamicResource ViewStyle}"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TabControl ItemsSource="{Binding TabItemCollection}"
-                          SelectedItem="{Binding SelectedTabItemViewModel}"
-                          >
-            <TabControl.ItemTemplate>
-                <DataTemplate>
-                    <DockPanel Margin="0,0" LastChildFill="True">
-                        <StackPanel Orientation="Horizontal"
-                                    DockPanel.Dock="Right">
-                            <ToggleButton Width="30"
-                                      Height="30"
-                                      BorderThickness="0"
-                                      IsChecked="{Binding IsPinned, Mode=TwoWay}">
-                                <Image Margin="2">
+    <UserControl.Resources>
+        
+        <Style x:Key="ViewStyle" TargetType="UserControl">
+            <Setter Property="Content">
+                <Setter.Value>
+                    <DockPanel LastChildFill="True">
+                        <DockPanel LastChildFill="True"
+                   DockPanel.Dock="Top"
+                   Margin="0,0,140,0"
+                   Height="32"
+                   WindowChrome.IsHitTestVisibleInChrome="True">
+                            <Button DockPanel.Dock="Right"
+                    Width="46"
+                    Command="{Binding CreateTabCommand}"
+                    Style="{DynamicResource CreateTabButtonStyle}">
+                                <Image Margin="5">
                                     <Image.Source>
                                         <DrawingImage >
                                             <DrawingImage.Drawing>
@@ -30,36 +33,419 @@
                                                     <DrawingGroup.Transform>
                                                         <TranslateTransform X="0" Y="7.9891151472111233E-07" />
                                                     </DrawingGroup.Transform>
-                                                    <GeometryDrawing Brush="#FF555555" Geometry="F1 M16,16z M0,0z M9.828,0.722A0.5,0.5,0,0,1,10.182,0.868L15.132,5.818A0.5,0.5,0,0,1,15.132,6.525C14.652,7.005 14.06,7.113 13.629,7.113 13.452,7.113 13.294,7.095 13.169,7.074L10.035,10.208A5.927,5.927,0,0,1,10.195,11.221C10.241,11.923,10.163,12.908,9.475,13.596A0.5,0.5,0,0,1,8.768,13.596L5.93899999999999,10.768 2.75699999999999,13.95C2.56199999999999,14.145 1.53799999999999,14.852 1.34299999999999,14.657 1.14799999999999,14.462 1.85499999999999,13.437 2.04999999999999,13.243L5.23199999999999,10.061 2.404,7.232A0.5,0.5,0,0,1,2.404,6.525C3.092,5.837,4.07699999999999,5.758,4.77899999999999,5.805A5.922,5.922,0,0,1,5.79199999999999,5.965L8.92599999999999,2.832A2.772,2.772,0,0,1,8.886,2.371C8.886,1.941,8.994,1.349,9.475,0.868000000000002A0.5,0.5,0,0,1,9.828,0.722000000000002z" />
-                                                </DrawingGroup>
-                                            </DrawingImage.Drawing>
-                                        </DrawingImage>
-                                    </Image.Source>
-                                </Image>
-                            </ToggleButton>
-                            <Button Command="{Binding CloseTabCommand}"
-                                    BorderThickness="0"
-                                    Margin="0,0,20,0">
-                                <Image>
-                                    <Image.Source>
-                                        <DrawingImage >
-                                            <DrawingImage.Drawing>
-                                                <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
-                                                    <GeometryDrawing Brush="#FF555555" Geometry="F1 M16,16z M0,0z M4.646,4.646A0.5,0.5,0,0,1,5.354,4.646L8,7.293 10.646,4.646A0.5,0.5,0,0,1,11.354,5.354L8.707,8 11.354,10.646A0.5,0.5,0,0,1,10.646,11.354L8,8.707 5.354,11.354A0.5,0.5,0,0,1,4.646,10.646L7.293,8 4.646,5.354A0.5,0.5,0,0,1,4.646,4.646z" />
+                                                    <GeometryDrawing Brush="#FFFFFF" Geometry="F1 M16,16z M0,0z M8,4A0.5,0.5,0,0,1,8.5,4.5L8.5,7.5 11.5,7.5A0.5,0.5,0,0,1,11.5,8.5L8.5,8.5 8.5,11.5A0.5,0.5,0,0,1,7.5,11.5L7.5,8.5 4.5,8.5A0.5,0.5,0,0,1,4.5,7.5L7.5,7.5 7.5,4.5A0.5,0.5,0,0,1,8,4z" />
                                                 </DrawingGroup>
                                             </DrawingImage.Drawing>
                                         </DrawingImage>
                                     </Image.Source>
                                 </Image>
                             </Button>
-                        </StackPanel>
-                        <TextBlock VerticalAlignment="Center" Text="{Binding Header}"/>
+                            <StackPanel DockPanel.Dock="Left"
+                        Orientation="Horizontal">
+                                <ToggleButton  Height="32" Width="42" Style="{DynamicResource TabStripToggleButtonStyle}"
+                                               IsChecked="{Binding IsLeftTabStripEnabled, Mode=TwoWay}">
+                                    <ToggleButton.Template>
+                                        <ControlTemplate TargetType="ToggleButton">
+                                            <Border CornerRadius="0"
+                                    Background="{TemplateBinding Background}">
+                                                <ContentControl VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"
+                                                  Content="{TemplateBinding Content}"
+                                                  TextElement.Foreground="{TemplateBinding Foreground}"
+                                                  x:Name="ContentControl"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsEnabled" Value="True">
+                                                    <Setter Property="Background" Value="Transparent"/>
+                                                    <Setter Property="Width" Value="30"/>
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#88FFFFFF"/>
+                                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                                </Trigger>
+                                                <Trigger Property="IsPressed" Value="True">
+                                                    <Setter Property="Background" Value="#55555555"/>
+                                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                                </Trigger>
+                                                <Trigger Property="IsChecked" Value="True">
+                                                    <Setter TargetName="ContentControl" Property="RenderTransform">
+                                                        <Setter.Value>
+                                                            <TransformGroup>
+                                                                <RotateTransform Angle="90"
+                                                             CenterX="0.5"
+                                                             CenterY="0.5"/>
+                                                                <TranslateTransform X="28"/>
+                                                            </TransformGroup>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                                <Trigger Property="IsEnabled" Value="False">
+                                                    <Setter Property="Background" Value="Transparent"/>
+                                                    <Setter Property="Opacity" Value="0.2"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </ToggleButton.Template>
+                                    <Image Margin="10">
+                                        <Image.Source>
+                                            <DrawingImage >
+                                                <DrawingImage.Drawing>
+                                                    <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                                        <DrawingGroup.Transform>
+                                                            <TranslateTransform X="0" Y="7.9891151472111233E-07" />
+                                                        </DrawingGroup.Transform>
+                                                        <GeometryDrawing Brush="#FFFFFF" Geometry="F1 M16,16z M0,0z M8,15L8,1 14,1A1,1,0,0,1,15,2L15,14A1,1,0,0,1,14,15L8,15z M14,16A2,2,0,0,0,16,14L16,2A2,2,0,0,0,14,0L2,0A2,2,0,0,0,0,2L0,14A2,2,0,0,0,2,16L14,16z" />
+                                                    </DrawingGroup>
+                                                </DrawingImage.Drawing>
+                                            </DrawingImage>
+                                        </Image.Source>
+                                    </Image>
+                                </ToggleButton>
+                                <Button Height="32"
+                        Command="{Binding SelectedTabItemViewModel.ReturnHomeCommand}"
+                        Style="{DynamicResource TabStripButtonStyle}">
+                                    <Image Margin="10">
+                                        <Image.Source>
+                                            <DrawingImage >
+                                                <DrawingImage.Drawing>
+                                                    <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                                        <DrawingGroup.Transform>
+                                                            <TranslateTransform X="0" Y="7.9891151472111233E-07" />
+                                                        </DrawingGroup.Transform>
+                                                        <GeometryDrawing Brush="#FFFFFF" Geometry="F1 M16,16z M0,0z M8.354,1.146A0.5,0.5,0,0,0,7.646,1.146L1.646,7.146A0.5,0.5,0,0,0,1.5,7.5L1.5,14.5A0.5,0.5,0,0,0,2,15L6.5,15A0.5,0.5,0,0,0,7,14.5L7,10.5 9,10.5 9,14.5A0.5,0.5,0,0,0,9.5,15L14,15A0.5,0.5,0,0,0,14.5,14.5L14.5,7.5A0.5,0.5,0,0,0,14.354,7.146L13,5.793 13,2.5A0.5,0.5,0,0,0,12.5,2L11.5,2A0.5,0.5,0,0,0,11,2.5L11,3.793 8.354,1.146z M2.5,14L2.5,7.707 8,2.207 13.5,7.707 13.5,14 10,14 10,10A0.5,0.5,0,0,0,9.5,9.5L6.5,9.5A0.5,0.5,0,0,0,6,10L6,14 2.5,14z" />
+                                                    </DrawingGroup>
+                                                </DrawingImage.Drawing>
+                                            </DrawingImage>
+                                        </Image.Source>
+                                    </Image>
+                                </Button>
+                                <Button  Height="32"
+                                         Command="{Binding SelectedTabItemViewModel.ReturnCommand}"
+                                         Style="{DynamicResource TabStripButtonStyle}">
+                                    <Image Margin="9">
+                                        <Image.Source>
+                                            <DrawingImage >
+                                                <DrawingImage.Drawing>
+                                                    <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                                        <DrawingGroup.Transform>
+                                                            <TranslateTransform X="0" Y="7.9891151472111233E-07" />
+                                                        </DrawingGroup.Transform>
+                                                        <GeometryDrawing Brush="#FFFFFF" Geometry="F0 M16,16z M0,0z M11.354,1.646A0.5,0.5,0,0,1,11.354,2.354L5.707,8 11.354,13.646A0.5,0.5,0,0,1,10.646,14.354L4.646,8.354A0.5,0.5,0,0,1,4.646,7.646L10.646,1.646A0.5,0.5,0,0,1,11.354,1.646z" />
+                                                    </DrawingGroup>
+                                                </DrawingImage.Drawing>
+                                            </DrawingImage>
+                                        </Image.Source>
+                                    </Image>
+                                </Button>
+                            </StackPanel>
+                            
+                            <ListBox ItemsSource="{Binding TabItemCollection}"
+                     SelectedItem="{Binding SelectedTabItemViewModel}"
+                     Height="32"
+                     BorderThickness="0"
+                     Background="Transparent"
+                     Padding="0,-2"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                     ItemContainerStyle="{DynamicResource TabListBoxItemStyle}">
+                                
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Header}"
+                                   VerticalAlignment="Center"
+                                   Margin="10,0"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Rows="1"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                            </ListBox>
+                        </DockPanel>
+                        <ContentControl  Content="{Binding SelectedTabItemViewModel}">
+                            <ContentControl.ContentTemplateSelector>
+                                <services:TemplateSelector/>
+                            </ContentControl.ContentTemplateSelector>
+                        </ContentControl>
                     </DockPanel>
-                </DataTemplate>
-            </TabControl.ItemTemplate>
-            <TabControl.ContentTemplateSelector>
-                <services:TemplateSelector/>
-            </TabControl.ContentTemplateSelector>
-        </TabControl>
-    </Grid>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsLeftTabStripEnabled}" Value="True">
+                    <Setter Property="Content">
+                        <Setter.Value>
+                            <DockPanel LastChildFill="True">
+                                <DockPanel LastChildFill="True"
+                                           WindowChrome.IsHitTestVisibleInChrome="True"
+                                        DockPanel.Dock="Left"
+                                        x:Name="Panel">
+                                    <DockPanel.Triggers>
+                                        <EventTrigger RoutedEvent="MouseEnter">
+                                            <EventTrigger.Actions>
+                                                <BeginStoryboard >
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Width"
+                                                                         From="42"
+                                                                         To="207"
+                                                                         Duration="0:0:0.120"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger.Actions>
+                                        </EventTrigger>
+                                        <EventTrigger RoutedEvent="MouseLeave">
+                                            <EventTrigger.Actions>
+                                                <BeginStoryboard >
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Width"
+                                                                         From="207"
+                                                                         To="42"
+                                                                         Duration="0:0:0.120"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger.Actions>
+                                        </EventTrigger>
+                                    </DockPanel.Triggers>
+                                    <StackPanel DockPanel.Dock="Top"
+                                                HorizontalAlignment="Left">
+                                        <ToggleButton Style="{DynamicResource TabStripToggleButtonStyle}"
+                                                      Height="32"
+                                                      Width="42"
+                    IsChecked="{Binding IsLeftTabStripEnabled, Mode=TwoWay}">
+                                            <ToggleButton.Template>
+                                                <ControlTemplate TargetType="ToggleButton">
+                                                    <Border CornerRadius="0"
+                                    Background="{TemplateBinding Background}">
+                                                        <ContentControl VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"
+                                                  Content="{TemplateBinding Content}"
+                                                  TextElement.Foreground="{TemplateBinding Foreground}"
+                                                  x:Name="ContentControl"/>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsEnabled" Value="True">
+                                                            <Setter Property="Background" Value="Transparent"/>
+                                                            <Setter Property="Width" Value="30"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="#88FFFFFF"/>
+                                                            <Setter Property="Foreground" Value="#FFFFFF"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsPressed" Value="True">
+                                                            <Setter Property="Background" Value="#55555555"/>
+                                                            <Setter Property="Foreground" Value="#FFFFFF"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsChecked" Value="True">
+                                                            <Setter TargetName="ContentControl" Property="RenderTransform">
+                                                                <Setter.Value>
+                                                                    <TransformGroup>
+                                                                        <RotateTransform Angle="90"
+                                                             CenterX="0.5"
+                                                             CenterY="0.5"/>
+                                                                        <TranslateTransform X="31"/>
+                                                                    </TransformGroup>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </Trigger>
+                                                        <Trigger Property="IsEnabled" Value="False">
+                                                            <Setter Property="Background" Value="Transparent"/>
+                                                            <Setter Property="Opacity" Value="0.2"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </ToggleButton.Template>
+                                            <Image Margin="10">
+                                                <Image.Source>
+                                                    <DrawingImage >
+                                                        <DrawingImage.Drawing>
+                                                            <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                                                <DrawingGroup.Transform>
+                                                                    <TranslateTransform X="0" Y="7.9891151472111233E-07" />
+                                                                </DrawingGroup.Transform>
+                                                                <GeometryDrawing Brush="#FFFFFF" Geometry="F1 M16,16z M0,0z M8,15L8,1 14,1A1,1,0,0,1,15,2L15,14A1,1,0,0,1,14,15L8,15z M14,16A2,2,0,0,0,16,14L16,2A2,2,0,0,0,14,0L2,0A2,2,0,0,0,0,2L0,14A2,2,0,0,0,2,16L14,16z" />
+                                                            </DrawingGroup>
+                                                        </DrawingImage.Drawing>
+                                                    </DrawingImage>
+                                                </Image.Source>
+                                            </Image>
+                                        </ToggleButton>
+                                        <Button DockPanel.Dock="Top"
+                                                Height="32"
+                                            Width="42"
+                                            Command="{Binding CreateTabCommand}"
+                                            Style="{DynamicResource CreateTabButtonStyle}">
+                                            <Image Margin="5">
+                                                <Image.Source>
+                                                    <DrawingImage >
+                                                        <DrawingImage.Drawing>
+                                                            <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                                                <DrawingGroup.Transform>
+                                                                    <TranslateTransform X="0" Y="7.9891151472111233E-07" />
+                                                                </DrawingGroup.Transform>
+                                                                <GeometryDrawing Brush="#FFFFFF" Geometry="F1 M16,16z M0,0z M8,4A0.5,0.5,0,0,1,8.5,4.5L8.5,7.5 11.5,7.5A0.5,0.5,0,0,1,11.5,8.5L8.5,8.5 8.5,11.5A0.5,0.5,0,0,1,7.5,11.5L7.5,8.5 4.5,8.5A0.5,0.5,0,0,1,4.5,7.5L7.5,7.5 7.5,4.5A0.5,0.5,0,0,1,8,4z" />
+                                                            </DrawingGroup>
+                                                        </DrawingImage.Drawing>
+                                                    </DrawingImage>
+                                                </Image.Source>
+                                            </Image>
+                                        </Button>
+                                    </StackPanel>
+                                    
+                                    <ListBox ItemsSource="{Binding TabItemCollection}"
+                     SelectedItem="{Binding SelectedTabItemViewModel}"
+                     BorderThickness="0"
+                     Background="Transparent"
+                     Padding="0,-2"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                        <ListBox.Resources>
+                                            <Style TargetType="ListBoxItem">
+                                                <Setter Property="MinWidth" Value="60"/>
+                                                <Setter Property="Height" Value="32"/>
+                                                <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}"/>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="ListBoxItem">
+                                                            <Border Background="{TemplateBinding Background}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                Margin="0,0,0,0">
+                                                                <Grid>
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="Auto"/>
+                                                                        <ColumnDefinition/>
+                                                                        <ColumnDefinition Width="Auto"/>
+                                                                    </Grid.ColumnDefinitions>
+                                                                    <ToggleButton Width="24"
+                                      Height="24"
+                                      Margin="6,0,0,0"
+                                      BorderThickness="0"
+                                      IsChecked="{Binding IsPinned, Mode=TwoWay}">
+                                                                        <Image Margin="4">
+                                                                            <Image.Source>
+                                                                                <DrawingImage >
+                                                                                    <DrawingImage.Drawing>
+                                                                                        <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                                                                            <DrawingGroup.Transform>
+                                                                                                <TranslateTransform X="0" Y="7.9891151472111233E-07" />
+                                                                                            </DrawingGroup.Transform>
+                                                                                            <GeometryDrawing Brush="DimGray" Geometry="F1 M16,16z M0,0z M9.828,0.722A0.5,0.5,0,0,1,10.182,0.868L15.132,5.818A0.5,0.5,0,0,1,15.132,6.525C14.652,7.005 14.06,7.113 13.629,7.113 13.452,7.113 13.294,7.095 13.169,7.074L10.035,10.208A5.927,5.927,0,0,1,10.195,11.221C10.241,11.923,10.163,12.908,9.475,13.596A0.5,0.5,0,0,1,8.768,13.596L5.93899999999999,10.768 2.75699999999999,13.95C2.56199999999999,14.145 1.53799999999999,14.852 1.34299999999999,14.657 1.14799999999999,14.462 1.85499999999999,13.437 2.04999999999999,13.243L5.23199999999999,10.061 2.404,7.232A0.5,0.5,0,0,1,2.404,6.525C3.092,5.837,4.07699999999999,5.758,4.77899999999999,5.805A5.922,5.922,0,0,1,5.79199999999999,5.965L8.92599999999999,2.832A2.772,2.772,0,0,1,8.886,2.371C8.886,1.941,8.994,1.349,9.475,0.868000000000002A0.5,0.5,0,0,1,9.828,0.722000000000002z" />
+                                                                                        </DrawingGroup>
+                                                                                    </DrawingImage.Drawing>
+                                                                                </DrawingImage>
+                                                                            </Image.Source>
+                                                                        </Image>
+                                                                    </ToggleButton>
+                                                                    <Button Command="{Binding CloseTabCommand}"
+                                        Width="24"
+                                        Height="24"
+                                    BorderThickness="0"
+                                    Margin="5,0"
+                                    Grid.Column="2">
+                                                                        <Image Margin="2">
+                                                                            <Image.Source>
+                                                                                <DrawingImage >
+                                                                                    <DrawingImage.Drawing>
+                                                                                        <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                                                                            <GeometryDrawing Brush="DimGray" Geometry="F1 M16,16z M0,0z M4.646,4.646A0.5,0.5,0,0,1,5.354,4.646L8,7.293 10.646,4.646A0.5,0.5,0,0,1,11.354,5.354L8.707,8 11.354,10.646A0.5,0.5,0,0,1,10.646,11.354L8,8.707 5.354,11.354A0.5,0.5,0,0,1,4.646,10.646L7.293,8 4.646,5.354A0.5,0.5,0,0,1,4.646,4.646z" />
+                                                                                        </DrawingGroup>
+                                                                                    </DrawingImage.Drawing>
+                                                                                </DrawingImage>
+                                                                            </Image.Source>
+                                                                        </Image>
+                                                                    </Button>
+                                                                    <Rectangle Height="1"
+                                           Fill="Gray"
+                                           VerticalAlignment="Bottom"
+                                           Grid.ColumnSpan="3"/>
+                                                                    <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Grid.Column="1" TextElement.Foreground="{TemplateBinding Foreground}"/>
+                                                                </Grid>
+                                                            </Border>
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="IsEnabled" Value="True">
+                                                                    <Setter Property="Background" Value="Black"/>
+                                                                    <Setter Property="Foreground" Value="White"/>
+                                                                </Trigger>
+                                                                <Trigger Property="IsSelected" Value="True">
+                                                                    <Setter Property="Background" Value="White"/>
+                                                                    <Setter Property="Foreground" Value="Black"/>
+                                                                </Trigger>
+                                                                <Trigger Property="IsEnabled" Value="False">
+                                                                    <Setter Property="Foreground" Value="Gray"/>
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ListBox.Resources>
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Header}"
+                                   VerticalAlignment="Center"
+                                   Margin="10,0"/>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                        <ListBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ListBox.ItemsPanel>
+                                    </ListBox>
+                                </DockPanel>
+                                <DockPanel LastChildFill="True">
+                                    <StackPanel DockPanel.Dock="Top"
+                                                Height="32"
+                                                WindowChrome.IsHitTestVisibleInChrome="True"
+                                                Orientation="Horizontal">
+                                        
+                                        <Button Command="{Binding SelectedTabItemViewModel.ReturnHomeCommand}"
+                                                Style="{DynamicResource TabStripButtonStyle}">
+                                            <Image Margin="10">
+                                                <Image.Source>
+                                                    <DrawingImage >
+                                                        <DrawingImage.Drawing>
+                                                            <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                                                <DrawingGroup.Transform>
+                                                                    <TranslateTransform X="0" Y="7.9891151472111233E-07" />
+                                                                </DrawingGroup.Transform>
+                                                                <GeometryDrawing Brush="#FFFFFF" Geometry="F1 M16,16z M0,0z M8.354,1.146A0.5,0.5,0,0,0,7.646,1.146L1.646,7.146A0.5,0.5,0,0,0,1.5,7.5L1.5,14.5A0.5,0.5,0,0,0,2,15L6.5,15A0.5,0.5,0,0,0,7,14.5L7,10.5 9,10.5 9,14.5A0.5,0.5,0,0,0,9.5,15L14,15A0.5,0.5,0,0,0,14.5,14.5L14.5,7.5A0.5,0.5,0,0,0,14.354,7.146L13,5.793 13,2.5A0.5,0.5,0,0,0,12.5,2L11.5,2A0.5,0.5,0,0,0,11,2.5L11,3.793 8.354,1.146z M2.5,14L2.5,7.707 8,2.207 13.5,7.707 13.5,14 10,14 10,10A0.5,0.5,0,0,0,9.5,9.5L6.5,9.5A0.5,0.5,0,0,0,6,10L6,14 2.5,14z" />
+                                                            </DrawingGroup>
+                                                        </DrawingImage.Drawing>
+                                                    </DrawingImage>
+                                                </Image.Source>
+                                            </Image>
+                                        </Button>
+                                        <Button Command="{Binding SelectedTabItemViewModel.ReturnCommand}"
+                                                Style="{DynamicResource TabStripButtonStyle}">
+                                            <Image Margin="9">
+                                                <Image.Source>
+                                                    <DrawingImage >
+                                                        <DrawingImage.Drawing>
+                                                            <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                                                <DrawingGroup.Transform>
+                                                                    <TranslateTransform X="0" Y="7.9891151472111233E-07" />
+                                                                </DrawingGroup.Transform>
+                                                                <GeometryDrawing Brush="#FFFFFF" Geometry="F0 M16,16z M0,0z M11.354,1.646A0.5,0.5,0,0,1,11.354,2.354L5.707,8 11.354,13.646A0.5,0.5,0,0,1,10.646,14.354L4.646,8.354A0.5,0.5,0,0,1,4.646,7.646L10.646,1.646A0.5,0.5,0,0,1,11.354,1.646z" />
+                                                            </DrawingGroup>
+                                                        </DrawingImage.Drawing>
+                                                    </DrawingImage>
+                                                </Image.Source>
+                                            </Image>
+                                        </Button>
+                                    </StackPanel>
+                                    <ContentControl  Content="{Binding SelectedTabItemViewModel}">
+                                        <ContentControl.ContentTemplateSelector>
+                                            <services:TemplateSelector/>
+                                        </ContentControl.ContentTemplateSelector>
+                                    </ContentControl>
+                                </DockPanel>
+                            </DockPanel>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    
 </UserControl>

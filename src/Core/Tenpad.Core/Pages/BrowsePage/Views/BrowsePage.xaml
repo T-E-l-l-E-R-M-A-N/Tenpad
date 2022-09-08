@@ -4,15 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Tenpad.Core.Views"
-             xmlns:handy="clr-namespace:HandyControl.Controls;assembly=HandyControl"
              xmlns:core="clr-namespace:Tenpad.Core"
              xmlns:valueConverters="clr-namespace:Tenpad.Core.ValueConverters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel LastChildFill="True"
-               Margin="0,0,0,30">
-        <Border Background="LightGray"
-                Width="207">
+               Margin="0,0,0,0">
+        <Border Background="#222222"
+                Width="0">
             <Grid>
                 <Rectangle Width="1"
                            HorizontalAlignment="Right"
@@ -21,7 +20,7 @@
             </Grid>
         </Border>
         <DockPanel LastChildFill="True">
-            <Border Background="Black"
+            <Border Background="#55555555"
                     Height="50"
                     DockPanel.Dock="Bottom">
                 <DockPanel LastChildFill="True"
@@ -29,22 +28,30 @@
                     <StackPanel Orientation="Horizontal"
                                 DockPanel.Dock="Right"
                                 Margin="10,0">
-                        <Button Width="50"
-                                Margin="0,0,5,0">
-                            <Image Margin="-2">
-                                <Image.Source>
-                                    <DrawingImage>
-                                        <DrawingImage.Drawing>
-                                            <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
-                                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M16,16z M0,0z M12.736,3.97A0.733,0.733,0,0,1,13.783,3.97C14.069,4.259,14.073,4.726,13.793,5.02L7.88,12.01A0.733,0.733,0,0,1,6.815,12.03L3.217,8.384A0.757,0.757,0,0,1,3.217,7.324A0.733,0.733,0,0,1,4.264,7.324L7.316,10.417 12.716,3.992A0.247,0.247,0,0,1,12.736,3.97z" />
-                                            </DrawingGroup>
-                                        </DrawingImage.Drawing>
-                                    </DrawingImage>
-                                </Image.Source>
-                            </Image>
+                        <Button Width="90"
+                                Margin="0,0,5,0"
+                                Command="{Binding OpenCommand}"
+                                CommandParameter="{Binding SelectedItem, ElementName=List}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Margin="7">
+                                    <Image.Source>
+                                        <DrawingImage>
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                                    <GeometryDrawing Brush="#FF000000" Geometry="F1 M16,16z M0,0z M12.736,3.97A0.733,0.733,0,0,1,13.783,3.97C14.069,4.259,14.073,4.726,13.793,5.02L7.88,12.01A0.733,0.733,0,0,1,6.815,12.03L3.217,8.384A0.757,0.757,0,0,1,3.217,7.324A0.733,0.733,0,0,1,4.264,7.324L7.316,10.417 12.716,3.992A0.247,0.247,0,0,1,12.736,3.97z" />
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </Image.Source>
+                                </Image>
+                                <TextBlock VerticalAlignment="Center"
+                                           Margin="5,0"
+                                           Text="Open"/>
+                            </StackPanel>
                         </Button>
-                        <Button Width="50">
-                            <Image Margin="-4">
+                        <Button Width="50"
+                                Command="{Binding ReturnCommand}">
+                            <Image Margin="5">
                                 <Image.Source>
                                     <DrawingImage>
                                         <DrawingImage.Drawing>
@@ -59,20 +66,21 @@
                     </StackPanel>
                     <TextBox Text="{Binding Header}"
                              Margin="20,0"
+                             Style="{DynamicResource EnterTextBoxStyle}"
                              VerticalContentAlignment="Center"/>
                 </DockPanel>
             </Border>
-            <Border Background="Black"
+            <Border Background="#55555555"
                     DockPanel.Dock="Top"
                     Height="50">
                 <DockPanel LastChildFill="True"
-                           Height="30"
-                           Background="AliceBlue">
+                           Height="30">
                     <StackPanel Orientation="Horizontal"
-                                DockPanel.Dock="Left">
-                        <Button Width="50"
+                                DockPanel.Dock="Left"
+                                Margin="5,0">
+                        <Button Width="30"
                                 Command="{Binding GoBackCommand}">
-                            <Image Margin="-5">
+                            <Image Margin="2">
                                 <Image.Source>
                                     <DrawingImage>
                                         <DrawingImage.Drawing>
@@ -84,10 +92,10 @@
                                 </Image.Source>
                             </Image>
                         </Button>
-                        <Button Width="50"
+                        <Button Width="30"
                                 Margin="5,0,0,0"
                                 Command="{Binding GoForwardCommand}">
-                            <Image Margin="-5">
+                            <Image Margin="2">
                                 <Image.Source>
                                     <DrawingImage>
                                         <DrawingImage.Drawing>
@@ -102,33 +110,57 @@
                         </Button>
                     </StackPanel>
                     <TextBox Text="{Binding Path}"
-                             Margin="20,0"
+                             Margin="0,0,10,0"
+                             Style="{DynamicResource EnterTextBoxStyle}"
                              VerticalContentAlignment="Center"/>
                 </DockPanel>
             </Border>
-            <ListBox ItemsSource="{Binding DirectoriesAndFiles}">
+            <ListBox ItemsSource="{Binding DirectoriesAndFiles}"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     x:Name="List">
+                <ListBox.Resources>
+                   
+                </ListBox.Resources>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Width="70">
-                            <Image Width="30"
-                                   Height="30" Source="{Binding Type, Converter={valueConverters:FileSystemModelTypeToDrawingImageSourceConverter}}">
+                        <Grid Height="50">
+                            <Grid.InputBindings>
+                                <MouseBinding MouseAction="LeftDoubleClick"
+                                            Command="{Binding DataContext.OpenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            CommandParameter="{Binding }">
+
+                                </MouseBinding>
+                            </Grid.InputBindings>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Image Margin="8" Source="{Binding Type, Converter={valueConverters:FileSystemModelTypeToDrawingImageSourceConverter}}">
                             </Image>
-                            <TextBlock Margin="0,5,0,0"
-                                       TextAlignment="Center"
-                                       Text="{Binding Name}"/>
-                            <TextBlock Margin="0,5,0,0"
-                                       TextAlignment="Center"
-                                       Text="{Binding Extension}"
-                                       Opacity="0.5"
-                                       FontSize="10"/>
-                        </StackPanel>
+                            <StackPanel Margin="10,0" Grid.Column="1">
+                                <TextBlock Grid.Row="1" Margin="0,5,0,0"
+                                           TextWrapping="Wrap"
+                                           Text="{Binding Name}"/>
+                                <TextBlock Grid.Row="2" Margin="0,5,0,0"
+                                           Text="{Binding Type}"
+                                           Opacity="0.5"
+                                           FontSize="10"/>
+                            </StackPanel>
+                        </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel/>
+                        <VirtualizingStackPanel/>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
+                <ListBox.InputBindings>
+                    <KeyBinding Key="Return"
+                                Command="{Binding OpenCommand}"
+                                CommandParameter="{Binding SelectedItem, ElementName=List}">
+
+                    </KeyBinding>
+                </ListBox.InputBindings>
             </ListBox>
         </DockPanel>
     </DockPanel>

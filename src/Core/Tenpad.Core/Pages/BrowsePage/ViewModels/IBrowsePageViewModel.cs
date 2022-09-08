@@ -9,7 +9,7 @@ namespace Tenpad.Core
         IHistory HistoryService { get; set; }
         ObservableCollection<IFileSystemModel> DirectoriesAndFiles { get; set; }
         string NewFileName { get; set; }
-        DelegateCommand<IFileSystemModel> OpenDocumentCommand { get; set; }
+        DelegateCommand OpenCommand { get; set; }
         DelegateCommand SaveDocumentCommand { get; set; }
 
         void LoadDirectory(DirectoryViewModel directoryViewModel);

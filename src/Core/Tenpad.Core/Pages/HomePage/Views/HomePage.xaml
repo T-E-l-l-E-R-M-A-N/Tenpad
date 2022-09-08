@@ -4,121 +4,136 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Tenpad.Core.Views"
-             xmlns:handy="clr-namespace:HandyControl.Controls;assembly=HandyControl"
+             xmlns:valueConverters="clr-namespace:Tenpad.Core.ValueConverters"
              mc:Ignorable="d" 
+             Background="Transparent"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border MinHeight="200"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                x:Name="Bd_Main"
-                Grid.Row="1">
-            <Grid>
-            <Rectangle Fill="Gray"
-                           Opacity="0.5">
-                <Rectangle.Effect>
-                    <BlurEffect Radius="230"/>
-                </Rectangle.Effect>
-            </Rectangle>
-            <Border Background="White"
-                        Margin="10"
-                        Padding="20,0">
-                <StackPanel>
-                    <TextBlock Text="{Binding WelcomeText}"
-                           TextAlignment="Center"
-                           FontSize="24"/>
-                    <StackPanel HorizontalAlignment="Stretch" 
-                            Margin="0,20"
-                            Orientation="Vertical">
-                        <Button Width="350"
-                            Height="50"
-                            BorderBrush="Black"
-                            Command="{Binding CreateDocCommand}">
-                            <StackPanel Orientation="Horizontal"
-                                    HorizontalAlignment="Left"
-                                    Width="320">
-                                <Image Margin="0">
-                                    <Image.Source>
-                                        <DrawingImage >
-                                            <DrawingImage.Drawing>
-                                                <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
-                                                    <DrawingGroup.Transform>
-                                                        <TranslateTransform X="0" Y="7.9891151472111233E-07" />
-                                                    </DrawingGroup.Transform>
-                                                    <GeometryDrawing Brush="#FF555555" Geometry="F1 M16,16z M0,0z M15.502,1.94A0.5,0.5,0,0,1,15.502,2.646L14.459,3.69 12.459,1.69 13.502,0.646A0.5,0.5,0,0,1,14.209,0.646L15.502,1.939z M13.752,4.396L11.752,2.396 4.939,9.21A0.5,0.5,0,0,0,4.818,9.406L4.013,11.82A0.25,0.25,0,0,0,4.329,12.136L6.743,11.331A0.5,0.5,0,0,0,6.939,11.211L13.752,4.397z" />
-                                                    <GeometryDrawing Brush="#FF555555" Geometry="F0 M16,16z M0,0z M1,13.5A1.5,1.5,0,0,0,2.5,15L13.5,15A1.5,1.5,0,0,0,15,13.5L15,7.5A0.5,0.5,0,0,0,14,7.5L14,13.5A0.5,0.5,0,0,1,13.5,14L2.5,14A0.5,0.5,0,0,1,2,13.5L2,2.5A0.5,0.5,0,0,1,2.5,2L9,2A0.5,0.5,0,0,0,9,1L2.5,1A1.5,1.5,0,0,0,1,2.5L1,13.5z" />
-                                                </DrawingGroup>
-                                            </DrawingImage.Drawing>
-                                        </DrawingImage>
-                                    </Image.Source>
-                                </Image>
-                                <TextBlock Text="Create new Document"
-                                       FontSize="20"
-                                       VerticalAlignment="Center"
-                                       Margin="20,0"/>
-                            </StackPanel>
-                        </Button>
-                        <Button Width="350"
-                            Height="50"
-                            Margin="0,10"
-                            BorderBrush="Black"
-                            Command="{Binding OpenBrowseCommand}">
-                            <StackPanel Orientation="Horizontal"
-                                    HorizontalAlignment="Left"
-                                    Width="320">
-                                <Image Margin="0">
-                                    <Image.Source>
-                                        <DrawingImage >
-                                            <DrawingImage.Drawing>
-                                                <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
-                                                    <DrawingGroup.Transform>
-                                                        <TranslateTransform X="0" Y="7.9891151472111233E-07" />
-                                                    </DrawingGroup.Transform>
-                                                    <GeometryDrawing Brush="#FF555555" Geometry="F1 M16,16z M0,0z M9.828,3L13.81,3A2,2,0,0,1,15.802,5.181L15.165,12.181A2,2,0,0,1,13.174,14L2.825,14A2,2,0,0,1,0.834,12.181L0.197,5.181A1.99,1.99,0,0,1,0.539,3.871L0.5,3A2,2,0,0,1,2.5,1L6.172,1A2,2,0,0,1,7.586,1.586L8.414,2.414A2,2,0,0,0,9.828,3z M1.506,3.12C1.72,3.042,1.95,3,2.19,3L7.586,3 6.879,2.293A1,1,0,0,0,6.172,2L2.5,2A1,1,0,0,0,1.5,2.981L1.506,3.12z" />
-                                                </DrawingGroup>
-                                            </DrawingImage.Drawing>
-                                        </DrawingImage>
-                                    </Image.Source>
-                                </Image>
-                                <TextBlock Text="Browse for Documents"
-                                       FontSize="20"
-                                       VerticalAlignment="Center"
-                                       Margin="20,0"/>
-                            </StackPanel>
-                        </Button>
-                    </StackPanel>
+        <Border Height="90"
+                Background="#55555555"
+                >
+            <DockPanel LastChildFill="True">
+
+                
+                <StackPanel VerticalAlignment="Center"
+                            Margin="10,0"
+                            >
+                    <TextBlock Text="Tenpad"
+                               Foreground="#FFFFFF"
+                               FontSize="32"/>
+                    <TextBlock Text="Create a new Document or open from your storage or select from recent"
+                               Foreground="#FFFFFF"
+                               TextWrapping="Wrap"
+                               FontSize="12"/>
                 </StackPanel>
-            </Border>
+            </DockPanel>
+        </Border>
+        <Border Grid.Row="1"
+                MaxWidth="720"
+                Opacity="0.5"
+                Margin="0,10">
+            <Grid>
+                <Rectangle Fill="#000000">
+                    <Rectangle.Effect>
+                        <BlurEffect Radius="50"/>
+                    </Rectangle.Effect>
+                </Rectangle>
+                <Border Background="#A9FFFFFF"
+                        Margin="10">
+                    <DockPanel LastChildFill="True">
+                        <Border Height="50"
+                                DockPanel.Dock="Top"
+                                Background="#55555555">
+                            <DockPanel LastChildFill="True">
+                                <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Right"
+                            DockPanel.Dock="Right"
+                            Orientation="Horizontal"
+                            Margin="0,0,10,0">
+                                    <Button Width="40"
+                            Height="40"
+                            BorderThickness="1"
+                            BorderBrush="#88222222"
+                            Command="{Binding OpenBrowseCommand}">
+                                        <Image Margin="5">
+                                            <Image.Source>
+                                                <DrawingImage >
+                                                    <DrawingImage.Drawing>
+                                                        <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                                            <DrawingGroup.Transform>
+                                                                <TranslateTransform X="0" Y="7.9891151472111233E-07" />
+                                                            </DrawingGroup.Transform>
+                                                            <GeometryDrawing Brush="#88222222" Geometry="F1 M16,16z M0,0z M1,3.5A1.5,1.5,0,0,1,2.5,2L5.264,2C6.222,2 7.024,2.56 7.575,3.184 7.985,3.648 8.48,4 9,4L13.5,4A1.5,1.5,0,0,1,15,5.5L15,12.5A1.5,1.5,0,0,1,13.5,14L2.5,14A1.5,1.5,0,0,1,1,12.5L1,3.5z M2.5,3A0.5,0.5,0,0,0,2,3.5L2,6 14,6 14,5.5A0.5,0.5,0,0,0,13.5,5L9,5C8.036,5 7.29,4.371 6.826,3.846 6.374,3.334 5.82,3 5.264,3L2.5,3z M14,7L2,7 2,12.5A0.5,0.5,0,0,0,2.5,13L13.5,13A0.5,0.5,0,0,0,14,12.5L14,7z" />
+                                                        </DrawingGroup>
+                                                    </DrawingImage.Drawing>
+                                                </DrawingImage>
+                                            </Image.Source>
+                                        </Image>
+                                    </Button>
+                                    <Button Width="40"
+                            Height="40"
+                            Margin="5,0,0,0"
+                            BorderThickness="1"
+                            BorderBrush="#88222222"
+                            Command="{Binding CreateDocCommand}">
+                                        <Image Margin="5">
+                                            <Image.Source>
+                                                <DrawingImage >
+                                                    <DrawingImage.Drawing>
+                                                        <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                                            <DrawingGroup.Transform>
+                                                                <TranslateTransform X="0" Y="7.9891151472111233E-07" />
+                                                            </DrawingGroup.Transform>
+                                                            <GeometryDrawing Brush="#88222222" Geometry="F1 M16,16z M0,0z M8,15A7,7,0,1,1,8,1A7,7,0,0,1,8,15z M8,16A8,8,0,1,0,8,0A8,8,0,0,0,8,16z" />
+                                                            <GeometryDrawing Brush="#88222222" Geometry="F1 M16,16z M0,0z M8,4A0.5,0.5,0,0,1,8.5,4.5L8.5,7.5 11.5,7.5A0.5,0.5,0,0,1,11.5,8.5L8.5,8.5 8.5,11.5A0.5,0.5,0,0,1,7.5,11.5L7.5,8.5 4.5,8.5A0.5,0.5,0,0,1,4.5,7.5L7.5,7.5 7.5,4.5A0.5,0.5,0,0,1,8,4z" />
+                                                        </DrawingGroup>
+                                                    </DrawingImage.Drawing>
+                                                </DrawingImage>
+                                            </Image.Source>
+                                        </Image>
+                                    </Button>
+                                </StackPanel>
+                                <TextBlock Foreground="#88222222"
+                                           Text="Recent Documents"
+                                           VerticalAlignment="Center"
+                                           Margin="10,0"
+                                           FontSize="24"
+                                />
+                            </DockPanel>
+                        </Border>
+                        <ListBox BorderThickness="0"
+                                 Margin="2"
+                                 Background="Transparent"
+                                 ItemsSource="{Binding RecentDocumentItems}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Height="50">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Image Margin="8" Source="{Binding Type, Converter={valueConverters:FileSystemModelTypeToDrawingImageSourceConverter}}">
+                                        </Image>
+                                        <StackPanel Margin="10,0" Grid.Column="1">
+                                            <TextBlock Grid.Row="1" Margin="0,5,0,0"
+                                                       TextWrapping="Wrap"
+                                                       Text="{Binding }"/>
+                                            <TextBlock Grid.Row="2" Margin="0,5,0,0"
+                                                       Text="{Binding Type}"
+                                                       Opacity="0.5"
+                                                       FontSize="10"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                </Border>
             </Grid>
         </Border>
-
-        <Rectangle Grid.Row="2" >
-            <Rectangle.OpacityMask>
-                <LinearGradientBrush StartPoint="0 0"
-                                     EndPoint="0 1">
-                    <GradientStop Color="#50000000" Offset="0"/>
-                    <GradientStop Color="Transparent" Offset="0.5"/>
-                </LinearGradientBrush>
-            </Rectangle.OpacityMask>
-            <Rectangle.Fill>
-                <VisualBrush Stretch="None" Visual="{Binding ElementName=Bd_Main}">
-                    <VisualBrush.RelativeTransform>
-                        <TransformGroup>
-                            <RotateTransform Angle="180"
-                                             CenterX="0.5"
-                                             CenterY="0.5"/>
-                            <ScaleTransform ScaleX="-1"
-                                            CenterX="0.5"
-                                            CenterY="0.5"/>
-                        </TransformGroup>
-                    </VisualBrush.RelativeTransform>
-                </VisualBrush>
-            </Rectangle.Fill>
-        </Rectangle>
     </Grid>
 </UserControl>

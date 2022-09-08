@@ -1,8 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using Prism.Commands;
 using Tenpad.Core.Factory;
+using Tenpad.Database;
 
 namespace Tenpad.Core
 {
@@ -16,6 +18,7 @@ namespace Tenpad.Core
         private readonly IPageViewModelFactory _pageViewModelFactory;
         private readonly IFileSystemModelFactory _fileSystemModelFactory;
         private readonly ITabViewModelFactory _tabViewModelFactory;
+        private readonly TenpadDbContext _tenpadDbContext;
 
         #endregion
 
@@ -29,11 +32,15 @@ namespace Tenpad.Core
 
         #region Constructor
 
-        public HomePageViewModel(IPageViewModelFactory pageViewModelFactory, IFileSystemModelFactory fileSystemModelFactory, ITabViewModelFactory tabViewModelFactory) : base(PageType.Home)
+        public HomePageViewModel(IPageViewModelFactory pageViewModelFactory, 
+            IFileSystemModelFactory fileSystemModelFactory, 
+            ITabViewModelFactory tabViewModelFactory,
+            TenpadDbContext tenpadDbContext) : base(PageType.Home)
         {
             _pageViewModelFactory = pageViewModelFactory;
             _fileSystemModelFactory = fileSystemModelFactory;
             _tabViewModelFactory = tabViewModelFactory;
+            _tenpadDbContext = tenpadDbContext;
             WelcomeText = "Tenpad | Welcome";
 
             CreateDocCommand = new DelegateCommand(OnOpenCreateDocPage);
@@ -61,12 +68,9 @@ namespace Tenpad.Core
         }
         private void OnOpenBrowsePage()
         {
-            var tab = _tabViewModelFactory.GetDefaultTabViewModel(_mainViewModel,
-                null) as DefaultTabViewModel;
-            var p = _pageViewModelFactory.GetBrowsePageViewModel(_mainViewModel, tab) as BrowsePageViewModel;
+            var p = _pageViewModelFactory.GetBrowsePageViewModel(_mainViewModel, _parentTabItemViewModel) as BrowsePageViewModel;
 
             p.LoadDirectory(_fileSystemModelFactory.GetNewFileSystemModelItem(FileSystemModelType.Directory, new DirectoryInfo(p.HistoryService.Current.FullName)) as DirectoryViewModel);
-            tab.PageViewModel = p;
             _parentTabItemViewModel.NavigateToPage(p);
         }
 
@@ -80,6 +84,11 @@ namespace Tenpad.Core
             _parentTabItemViewModel = tabItemViewModel as DefaultTabViewModel;
 
             _parentTabItemViewModel.Header = "Tanpad | Home";
+
+            foreach (DataObjectModel dataObjectModel in _tenpadDbContext.Data.Where(x => x.Id.StartsWith("system_applocal_tenpad_userdata_data_recent")))
+            {
+                RecentDocumentItems.Add(new DocumentViewModel(new FileInfo(dataObjectModel.Content)));
+            }
         }
 
         #endregion
