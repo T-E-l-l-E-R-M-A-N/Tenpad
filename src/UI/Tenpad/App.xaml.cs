@@ -20,7 +20,9 @@ namespace Tenpad
             IoC.BuildServiceProvider();
 
             var win = new MainWindow();
-            win.DataContext = IoC.Resolve<MainViewModel>();
+            var m = IoC.Resolve<MainViewModel>();
+            m.Init();
+            win.DataContext = m;
             Current.MainWindow = win;
             Current.MainWindow.Show();
         }

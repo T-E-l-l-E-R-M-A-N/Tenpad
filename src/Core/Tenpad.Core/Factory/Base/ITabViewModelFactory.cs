@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Tenpad.Core.Factory
+﻿namespace Tenpad.Core.Factory
 {
     public interface ITabViewModelFactory
     {

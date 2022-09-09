@@ -14,12 +14,20 @@ namespace Tenpad.Core.ValueConverters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var drawing = new DrawingImage();
-            if (value is FileSystemModelType type)
+            if (value is IFileSystemModel model)
             {
-                drawing = type switch
+                drawing = model.Type switch
                 {
                     FileSystemModelType.Directory => Application.Current.FindResource("DirectoryIconDrawingImage") as DrawingImage,
-                    FileSystemModelType.File => Application.Current.FindResource("DocumentIconDrawingImage") as DrawingImage,
+                    FileSystemModelType.File => Application.Current.FindResource(
+                        (model as FileViewModel).Extension switch
+                    {
+                        ".CS" => "CSIconDrawingImage",
+                        ".TXT" => "TXTIconDrawingImage",
+                        ".DOC" => "DOCIconDrawingImage",
+                        ".HTM" or ".HTML" => "HTMIconDrawingImage",
+                        ".XML" => "XMLIconDrawingImage",
+                    }) as DrawingImage,
                 };
             }
             return drawing;

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Tenpad.Core.Views"
+             xmlns:ctls="clr-namespace:Tenpad.Core.Controls"
              xmlns:services="clr-namespace:Tenpad.Core.Services"
              xmlns:core="clr-namespace:Tenpad.Core"
              mc:Ignorable="d" 
@@ -11,18 +12,19 @@
              Style="{DynamicResource ViewStyle}"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        
+
         <Style x:Key="ViewStyle" TargetType="UserControl">
             <Setter Property="Content">
                 <Setter.Value>
                     <DockPanel LastChildFill="True">
                         <DockPanel LastChildFill="True"
                    DockPanel.Dock="Top"
-                   Margin="0,0,140,0"
+                   Margin="0,0,0,0"
                    Height="32"
-                   WindowChrome.IsHitTestVisibleInChrome="True">
+                   >
                             <Button DockPanel.Dock="Right"
                     Width="46"
+                    WindowChrome.IsHitTestVisibleInChrome="True"
                     Command="{Binding CreateTabCommand}"
                     Style="{DynamicResource CreateTabButtonStyle}">
                                 <Image Margin="5">
@@ -41,7 +43,8 @@
                                 </Image>
                             </Button>
                             <StackPanel DockPanel.Dock="Left"
-                        Orientation="Horizontal">
+                        Orientation="Horizontal"
+                        WindowChrome.IsHitTestVisibleInChrome="True">
                                 <ToggleButton  Height="32" Width="42" Style="{DynamicResource TabStripToggleButtonStyle}"
                                                IsChecked="{Binding IsLeftTabStripEnabled, Mode=TwoWay}">
                                     <ToggleButton.Template>
@@ -138,30 +141,31 @@
                                     </Image>
                                 </Button>
                             </StackPanel>
-                            
-                            <ListBox ItemsSource="{Binding TabItemCollection}"
-                     SelectedItem="{Binding SelectedTabItemViewModel}"
-                     Height="32"
-                     BorderThickness="0"
-                     Background="Transparent"
-                     Padding="0,-2"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                     ItemContainerStyle="{DynamicResource TabListBoxItemStyle}">
-                                
+
+                            <ctls:HorizontalTabStripBox ItemsSource="{Binding TabItemCollection}"
+                                     SelectedItem="{Binding SelectedTabItemViewModel}"
+                                     Height="32"
+                                     BorderThickness="0"
+                                     Background="{x:Null}"
+                                     Padding="0,-2"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                     ItemContainerStyle="{DynamicResource TabListBoxItemStyle}">
+
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Header}"
-                                   VerticalAlignment="Center"
-                                   Margin="10,0"/>
+                                                   VerticalAlignment="Center"
+                                                   Margin="10,0"
+                                                   />
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <UniformGrid Rows="1"/>
+                                        <VirtualizingStackPanel Orientation="Horizontal"/>
                                     </ItemsPanelTemplate>
                                 </ListBox.ItemsPanel>
-                            </ListBox>
+                            </ctls:HorizontalTabStripBox>
                         </DockPanel>
                         <ContentControl  Content="{Binding SelectedTabItemViewModel}">
                             <ContentControl.ContentTemplateSelector>
@@ -211,7 +215,7 @@
                                         <ToggleButton Style="{DynamicResource TabStripToggleButtonStyle}"
                                                       Height="32"
                                                       Width="42"
-                    IsChecked="{Binding IsLeftTabStripEnabled, Mode=TwoWay}">
+                    IsChecked="{Binding IsLeftTabStripEnabled}">
                                             <ToggleButton.Template>
                                                 <ControlTemplate TargetType="ToggleButton">
                                                     <Border CornerRadius="0"
@@ -290,14 +294,14 @@
                                             </Image>
                                         </Button>
                                     </StackPanel>
-                                    
+
                                     <ListBox ItemsSource="{Binding TabItemCollection}"
-                     SelectedItem="{Binding SelectedTabItemViewModel}"
-                     BorderThickness="0"
-                     Background="Transparent"
-                     Padding="0,-2"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                             SelectedItem="{Binding SelectedTabItemViewModel}"
+                                             BorderThickness="0"
+                                             Background="Transparent"
+                                             Padding="0,-2"
+                                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                             ScrollViewer.VerticalScrollBarVisibility="Disabled">
                                         <ListBox.Resources>
                                             <Style TargetType="ListBoxItem">
                                                 <Setter Property="MinWidth" Value="60"/>
@@ -307,9 +311,9 @@
                                                     <Setter.Value>
                                                         <ControlTemplate TargetType="ListBoxItem">
                                                             <Border Background="{TemplateBinding Background}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                Margin="0,0,0,0">
+                                                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                                    Margin="0,0,0,0">
                                                                 <Grid>
                                                                     <Grid.ColumnDefinitions>
                                                                         <ColumnDefinition Width="Auto"/>
@@ -317,10 +321,10 @@
                                                                         <ColumnDefinition Width="Auto"/>
                                                                     </Grid.ColumnDefinitions>
                                                                     <ToggleButton Width="24"
-                                      Height="24"
-                                      Margin="6,0,0,0"
-                                      BorderThickness="0"
-                                      IsChecked="{Binding IsPinned, Mode=TwoWay}">
+                                                                                  Height="24"
+                                                                                  Margin="6,0,0,0"
+                                                                                  BorderThickness="0"
+                                                                                  IsChecked="{Binding IsPinned, Mode=TwoWay}">
                                                                         <Image Margin="4">
                                                                             <Image.Source>
                                                                                 <DrawingImage >
@@ -337,11 +341,11 @@
                                                                         </Image>
                                                                     </ToggleButton>
                                                                     <Button Command="{Binding CloseTabCommand}"
-                                        Width="24"
-                                        Height="24"
-                                    BorderThickness="0"
-                                    Margin="5,0"
-                                    Grid.Column="2">
+                                                                                Width="24"
+                                                                                Height="24"
+                                                                            BorderThickness="0"
+                                                                            Margin="5,0"
+                                                                            Grid.Column="2">
                                                                         <Image Margin="2">
                                                                             <Image.Source>
                                                                                 <DrawingImage >
@@ -398,7 +402,7 @@
                                                 Height="32"
                                                 WindowChrome.IsHitTestVisibleInChrome="True"
                                                 Orientation="Horizontal">
-                                        
+
                                         <Button Command="{Binding SelectedTabItemViewModel.ReturnHomeCommand}"
                                                 Style="{DynamicResource TabStripButtonStyle}">
                                             <Image Margin="10">
@@ -447,5 +451,4 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    
 </UserControl>

@@ -17,6 +17,7 @@ namespace Tenpad.Core
             services.AddSingleton<ITabViewModelFactory, TabViewModelFactory>();
             services.AddSingleton<IPageViewModelFactory, PageViewModelFactory>();
             services.AddSingleton<IFileSystemModelFactory, FileSystemModelFactory>();
+            services.AddSingleton<IMenuItemViewModelFactory, MenuItemViewModelFactory>();
 
             services.AddDbContext<TenpadDbContext>(options => options.UseSqlite("Data Source=tenpad.db"));
             
@@ -28,6 +29,8 @@ namespace Tenpad.Core
             services.AddTransient<IPageViewModel, HomePageViewModel>();
             services.AddTransient<IPageViewModel, DocumentPageViewModel>();
             services.AddTransient<IPageViewModel, BrowsePageViewModel>();
+
+            services.AddTransient<IMenuItemViewModel, MenuItemViewModel>();
 
             _provider = services.BuildServiceProvider();
 

@@ -25,7 +25,7 @@ namespace Tenpad.Core
         #region Public Properties
 
         public string WelcomeText { get; set; }
-        public ObservableCollection<DocumentViewModel> RecentDocumentItems { get; set; } =
+        public ObservableCollection<FileViewModel> RecentDocumentItems { get; set; } =
             new();
 
         #endregion
@@ -87,7 +87,7 @@ namespace Tenpad.Core
 
             foreach (DataObjectModel dataObjectModel in _tenpadDbContext.Data.Where(x => x.Id.StartsWith("system_applocal_tenpad_userdata_data_recent")))
             {
-                RecentDocumentItems.Add(new DocumentViewModel(new FileInfo(dataObjectModel.Content)));
+                RecentDocumentItems.Add(_fileSystemModelFactory.GetNewFileSystemModelItem(FileSystemModelType.File, new FileInfo(dataObjectModel.Content.ToString())) as FileViewModel);
             }
         }
 

@@ -5,7 +5,7 @@ namespace Tenpad.Core
     public interface IHomePageViewModel
     {
         string WelcomeText { get; set; }
-        ObservableCollection<DocumentViewModel> RecentDocumentItems { get; set; }
+        ObservableCollection<FileViewModel> RecentDocumentItems { get; set; }
 
     }
 }

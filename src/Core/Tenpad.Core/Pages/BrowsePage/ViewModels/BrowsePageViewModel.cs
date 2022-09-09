@@ -28,6 +28,9 @@ namespace Tenpad.Core
 
         #region Public Properties
 
+        public bool Saving { get; set; }
+        public object DocumentContent { get; set; }
+
         public string Path { get; set; }
 
         public string SaveFileDocumentContent { get; set; }
@@ -81,63 +84,70 @@ namespace Tenpad.Core
         #region Commands Methods
         private void OnOpen()
         {
-            if (SelectedCollection.Count == 1 && SelectedCollection[0] is IFileSystemModel obj)
+            if (Saving)
             {
-                if (obj is DirectoryViewModel directory)
-                {
-                    HistoryService.Update(directory);
-                    LoadDirectory(directory);
-                }
-                else if (obj is FileViewModel file)
-                {
-                    var d =
-                        _pageViewModelFactory.GetDocumentPageViewModel(_mainViewModel, _parentTabItemViewModel) as
-                            DocumentPageViewModel;
-                    _parentTabItemViewModel.NavigateToPage(d);
-                    d.LoadDocument(file);
-
-                    var dOM = new Tenpad
-                        .Database
-                        .DataObjectModel(
-                            $"system_applocal_tenpad_userdata_data_recent({file.Name})",
-                            file.FullName);
-
-                    if (_tenpadDbContext.Data.FirstOrDefault(x => x.Id == $"system_applocal_tenpad_userdata_data_recent({file.Name})") == null)
-                    {
-                        _tenpadDbContext.Data.Add(dOM);
-                    }
-
-                    _tenpadDbContext.SaveChanges();
-                }
+                File.WriteAllText(NewFileName, DocumentContent.ToString());
             }
-            else if (SelectedCollection.Count >= 2)
+            else
             {
-                foreach (var item in DirectoriesAndFiles.Where(x => (x as ISelectable).IsSelected && x is FileViewModel))
+                if (SelectedCollection.Count == 1 && SelectedCollection[0] is IFileSystemModel obj)
                 {
-                    var tab = _tabViewModelFactory.GetDefaultTabViewModel(_mainViewModel,
-                        null) as DefaultTabViewModel;
-                    tab.PageViewModel = _pageViewModelFactory.GetDocumentPageViewModel(_mainViewModel, tab) as IPageViewModel;
-                    (tab.PageViewModel as DocumentPageViewModel).LoadDocument(item as FileViewModel);
-                    _mainViewModel.TabItemCollection.Add(tab);
-
-                    var dOM = new Tenpad
-                        .Database
-                        .DataObjectModel(
-                            $"system_applocal_tenpad_userdata_data_directory_recent({item.Name})",
-                            $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\Tenpad\\Data\\");
-
-                    if (_tenpadDbContext.Data.FirstOrDefault(x => x.Id == $"system_applocal_tenpad_userdata_data_recent({item.Name})") == null)
+                    if (obj is DirectoryViewModel directory)
                     {
-                        _tenpadDbContext.Data.Add(dOM);
+                        HistoryService.Update(directory);
+                        LoadDirectory(directory);
                     }
+                    else if (obj is FileViewModel file)
+                    {
+                        var d =
+                            _pageViewModelFactory.GetDocumentPageViewModel(_mainViewModel, _parentTabItemViewModel) as
+                                DocumentPageViewModel;
+                        _parentTabItemViewModel.NavigateToPage(d);
+                        d.LoadDocument(file);
 
-                    _tenpadDbContext.SaveChanges();
+                        var dOM = new Tenpad
+                            .Database
+                            .DataObjectModel(
+                                $"system_applocal_tenpad_userdata_data_recent({file.Name})",
+                                file.FullName);
+
+                        if (_tenpadDbContext.Data.FirstOrDefault(x => x.Id == $"system_applocal_tenpad_userdata_data_recent({file.Name})") == null)
+                        {
+                            _tenpadDbContext.Data.Add(dOM);
+                        }
+
+                        _tenpadDbContext.SaveChanges();
+                    }
+                }
+                else if (SelectedCollection.Count >= 2)
+                {
+                    foreach (var item in DirectoriesAndFiles.Where(x => (x as ISelectable).IsSelected && x is FileViewModel))
+                    {
+                        var tab = _tabViewModelFactory.GetDefaultTabViewModel(_mainViewModel,
+                            null) as DefaultTabViewModel;
+                        tab.PageViewModel = _pageViewModelFactory.GetDocumentPageViewModel(_mainViewModel, tab) as IPageViewModel;
+                        (tab.PageViewModel as DocumentPageViewModel).LoadDocument(item as FileViewModel);
+                        _mainViewModel.TabItemCollection.Add(tab);
+
+                        var dOM = new Tenpad
+                            .Database
+                            .DataObjectModel(
+                                $"system_applocal_tenpad_userdata_data_directory_recent({item.Name})",
+                                $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\Tenpad\\Data\\");
+
+                        if (_tenpadDbContext.Data.FirstOrDefault(x => x.Id == $"system_applocal_tenpad_userdata_data_recent({item.Name})") == null)
+                        {
+                            _tenpadDbContext.Data.Add(dOM);
+                        }
+
+                        _tenpadDbContext.SaveChanges();
+
+                    }
+                    _mainViewModel.TabItemCollection.Remove(_parentTabItemViewModel);
+                    _mainViewModel.SelectedTabItemViewModel = _mainViewModel.TabItemCollection.LastOrDefault();
+
 
                 }
-                _mainViewModel.TabItemCollection.Remove(_parentTabItemViewModel);
-                _mainViewModel.SelectedTabItemViewModel = _mainViewModel.TabItemCollection.LastOrDefault();
-
-                
             }
         }
         private void OnSaveDocument()
@@ -192,7 +202,7 @@ namespace Tenpad.Core
             {
                 Application.Current.Dispatcher.InvokeAsync(() =>
                 {
-                    if (enumerateFile.Extension.ToLower() is ".txt" or ".rtf" or ".cs" or ".xml" or ".html")
+                    if (enumerateFile.Extension.ToLower() is ".txt" or ".doc" or ".cs" or ".xml" or ".html")
                     {
                         DirectoriesAndFiles.Add(_fileSystemModelFactory.GetNewFileSystemModelItem(FileSystemModelType.File, enumerateFile, ISelectableModel_PropertyChanged));
                     }
@@ -204,13 +214,24 @@ namespace Tenpad.Core
         {
             if (sender is ISelectable sel and IFileSystemModel && e.PropertyName == nameof(ISelectable.IsSelected))
             {
-                if (sel.IsSelected)
+                if (Saving)
                 {
-                    SelectedCollection.Add(sel);
+                    if(sender is DirectoryViewModel d)
+                    {
+                        SelectedCollection.Clear();
+                        SelectedCollection.Add(sel);
+                    }
                 }
                 else
                 {
-                    SelectedCollection.Remove(sel);
+                    if (sel.IsSelected)
+                    {
+                        SelectedCollection.Add(sel);
+                    }
+                    else
+                    {
+                        SelectedCollection.Remove(sel);
+                    }
                 }
             }
         }

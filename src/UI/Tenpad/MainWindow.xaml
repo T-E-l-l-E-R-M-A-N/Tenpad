@@ -7,22 +7,66 @@
               AllowsTransparency="True"
               WindowStyle="None"
               Background="Transparent"
+        xmlns:core="clr-namespace:Tenpad.Core;assembly=Tenpad.Core"
               xmlns:views="clr-namespace:Tenpad.Core.Views;assembly=Tenpad.Core"
               mc:Ignorable="d"
+              MaxHeight="{x:Static SystemParameters.MaximizedPrimaryScreenHeight}"
+              MaxWidth="{x:Static SystemParameters.MaximizedPrimaryScreenWidth}"
               Title="MainWindow" Height="450" Width="800">
 
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="30"/>
     </WindowChrome.WindowChrome>
-    <Grid Background="#AF000000">
-        <views:MainView/>
+    <Grid Background="#000000"
+          x:Name="LayoutGrid">
+        <DockPanel LastChildFill="True">
+            <Border Height="34"
+                    DockPanel.Dock="Top">
+                <Grid>
+                    <Rectangle Height="1"
+                               VerticalAlignment="Bottom"
+                               Fill="DimGray"/>
+                    <DockPanel LastChildFill="True"
+                               Margin="0,0,140,0">
+                        <Border DockPanel.Dock="Left"
+                                Width="42">
+                            <Image Source="{DynamicResource AppIcon}"
+                                   Width="16"
+                                   Height="16"/>
+                        </Border>
+                        <Menu ItemsSource="{Binding MenuCollection}"
+                              VerticalContentAlignment="Center"
+                              VerticalAlignment="Center"
+                             
+                              Background="Transparent">
+                            <Menu.Resources>
+                                <Style TargetType="MenuItem">
+                                    <Setter Property="Header" Value="{Binding Header}"/>
+                                    <Setter Property="ItemsSource" Value="{Binding Children}"/>
+                                    <Setter Property="IsCheckable" Value="{Binding IsCheckable}"/>
+                                    <Setter Property="IsChecked" Value="{Binding IsChecked}"/>
+                                    <Setter Property="Command" Value="{Binding Command}"/>
+                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                    <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+                                </Style>
+
+                                <HierarchicalDataTemplate DataType="{x:Type core:MenuItemViewModel}"
+                                                          ItemsSource="{Binding Children}"></HierarchicalDataTemplate>
+                            </Menu.Resources>
+                        </Menu>
+                    </DockPanel>
+                </Grid>
+            </Border>
+            <views:MainView/>
+        </DockPanel>
         <StackPanel HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     Height="32"
                     WindowChrome.IsHitTestVisibleInChrome="True"
                         Orientation="Horizontal">
             <Button Width="46"
-                Style="{DynamicResource WindowControlBoxButtonStyle}">
+                Style="{DynamicResource WindowControlBoxButtonStyle}"
+                x:Name="WindowControlBox_MinButton">
                 <Image Margin="5">
                     <Image.Source>
                         <DrawingImage >
@@ -39,23 +83,15 @@
                 </Image>
             </Button>
             <Button Width="46"
-                    Style="{DynamicResource WindowControlBoxButtonStyle}">
-                <Image Margin="10">
-                    <Image.Source>
-                        <DrawingImage >
-                            <DrawingImage.Drawing>
-                                <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
-                                    <DrawingGroup.Transform>
-                                        <TranslateTransform X="0" Y="7.9891151472111233E-07" />
-                                    </DrawingGroup.Transform>
-                                    <GeometryDrawing Brush="#FFFFFF" Geometry="F1 M16,16z M0,0z M14,1A1,1,0,0,1,15,2L15,14A1,1,0,0,1,14,15L2,15A1,1,0,0,1,1,14L1,2A1,1,0,0,1,2,1L14,1z M2,0A2,2,0,0,0,0,2L0,14A2,2,0,0,0,2,16L14,16A2,2,0,0,0,16,14L16,2A2,2,0,0,0,14,0L2,0z" />
-                                </DrawingGroup>
-                            </DrawingImage.Drawing>
-                        </DrawingImage>
-                    </Image.Source>
+                    Style="{DynamicResource WindowControlBoxButtonStyle}"
+                    x:Name="WindowControlBox_ExpButton">
+                <Image Margin="10" x:Name="ExpButtonIcon"
+                       Source="{DynamicResource WinCtlBoxRestoreIcon}">
                 </Image>
             </Button>
-            <Button Width="46" Style="{DynamicResource WindowControlBoxCloseButtonStyle}">
+            <Button Width="46" 
+                    Style="{DynamicResource WindowControlBoxCloseButtonStyle}"
+                    x:Name="WindowControlBox_CloseButton">
                 <Image Margin="4">
                     <Image.Source>
                         <DrawingImage >
