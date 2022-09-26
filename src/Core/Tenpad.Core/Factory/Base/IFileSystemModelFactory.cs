@@ -6,6 +6,6 @@ namespace Tenpad.Core.Factory
     public interface IFileSystemModelFactory
     {
         IFileSystemModel GetNewFileSystemModelItem(FileSystemModelType type, FileSystemInfo info,
-            PropertyChangedEventHandler onPropertyChanged = null);
+            PropertyChangedEventHandler? onPropertyChanged = null);
     }
 }

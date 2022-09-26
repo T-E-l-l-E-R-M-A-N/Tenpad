@@ -9,15 +9,6 @@
              Background="White"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid >
-        <Rectangle>
-            <Rectangle.Fill>
-                <LinearGradientBrush>
-                    <GradientStop Color="Black" Offset="0"/>
-                    <GradientStop Color="#FF1A3E37" Offset="0"/>
-                    <GradientStop Color="#FF361B1B" Offset="1"/>
-                </LinearGradientBrush>
-            </Rectangle.Fill>
-        </Rectangle>
         <ContentControl Content="{Binding PageViewModel}"
                         Margin="0,0,0,0"
                         ClipToBounds="True">

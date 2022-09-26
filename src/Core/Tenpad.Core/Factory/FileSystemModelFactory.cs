@@ -6,7 +6,7 @@ namespace Tenpad.Core.Factory
     internal sealed class FileSystemModelFactory : IFileSystemModelFactory
     {
         public IFileSystemModel GetNewFileSystemModelItem(FileSystemModelType type, FileSystemInfo info,
-            PropertyChangedEventHandler onPropertyChanged = null)
+            PropertyChangedEventHandler? onPropertyChanged = null)
         {
             FileSystemModelBase obj;
             switch (type)

@@ -32,6 +32,8 @@ namespace Tenpad.Core
 
             services.AddTransient<IMenuItemViewModel, MenuItemViewModel>();
 
+            services.AddTransient<IMenuService, MenuServiceImpl>();
+
             _provider = services.BuildServiceProvider();
 
             _provider.GetService<TenpadDbContext>().Database.EnsureCreated();

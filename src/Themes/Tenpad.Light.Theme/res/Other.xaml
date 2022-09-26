@@ -1,0 +1,326 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="TabControlTabListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
+        <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Padding" Value="-5"/>
+        <Setter Property="Margin" Value="-2"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource AccentBrush2}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource PanelInnerContentBackgroundBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource AccentBrush}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource PanelInnerContentBackgroundBrush}"/>
+                            <Setter Property="Margin" Value="0,1,0,-1"/>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="True"/>
+                                <Condition Property="Selector.IsSelectionActive" Value="False"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="{DynamicResource InactiveAccentBrush}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource ForegroundTextBrush}"/>
+                            <Setter Property="Margin" Value="0,1,0,-1"/>
+                        </MultiTrigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="{x:Type ListBoxItem}" TargetType="{x:Type ListBoxItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Border BorderThickness="0"
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter Margin="5,2" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource AccentBrush}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource PanelInnerContentBackgroundBrush}"/>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions >
+                                <Condition Property="IsSelected" Value="True"/>
+                                <Condition Property="Selector.IsSelectionActive" Value="False"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="{DynamicResource InactiveAccentBrush}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource ForegroundTextBrush}"/>
+                        </MultiTrigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.4"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary>
+            <Style x:Key="ScrollBarLineButton" TargetType="{x:Type Button}">
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="OverridesDefaultStyle" Value="true"/>
+                <Setter Property="Focusable" Value="false"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <ContentControl 
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+              TextElement.Foreground="{TemplateBinding Foreground}"
+              Content="{TemplateBinding Content}" />
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="True">
+                                    <Setter Property="Foreground" Value="{DynamicResource ScrollBarLineButtonForegroundHighlighted}" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Foreground" Value="{DynamicResource ScrollBarLineButtonForegroundHighlighted}" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="true">
+                                    <Setter Property="Foreground" Value="{DynamicResource ScrollBarLineButtonForegroundPressed}" />
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Opacity" Value="0"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ScrollBarPageButton" TargetType="{x:Type RepeatButton}">
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="OverridesDefaultStyle" Value="true"/>
+                <Setter Property="IsTabStop" Value="false"/>
+                <Setter Property="Focusable" Value="false"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type RepeatButton}">
+                            <Border Background="Transparent" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="OverridesDefaultStyle" Value="true"/>
+                <Setter Property="IsTabStop" Value="false"/>
+                <Setter Property="Focusable" Value="false"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Thumb}">
+                            <Border 
+            CornerRadius="0" 
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="1" />
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="True">
+                                    <Setter Property="Background" Value="{DynamicResource ScrollBarThumbBackgroundBrush}"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{DynamicResource ScrollBarThumbHighlightedBackgroundBrush}"/>
+                                </Trigger>
+                                <Trigger Property="IsDragging" Value="True">
+                                    <Setter Property="Background" Value="{DynamicResource ScrollBarThumbPressedBackgroundBrush}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <ControlTemplate x:Key="VerticalScrollBar" TargetType="{x:Type ScrollBar}">
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition MaxHeight="18"/>
+                        <RowDefinition Height="0.00001*"/>
+                        <RowDefinition MaxHeight="18"/>
+                    </Grid.RowDefinitions>
+                    <Border
+        Grid.RowSpan="3"
+        CornerRadius="2" 
+        Background="Transparent"/>
+                    <Button 
+                        Style="{DynamicResource ScrollBarLineButton}"
+        Grid.Row="0"     
+        Command="ScrollBar.LineUpCommand">
+                        <Image Width="12"
+                               Height="12"
+                               Margin="2,4,-2,-4"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center">
+                            <Image.Source>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                            <GeometryDrawing Brush="{DynamicResource ScrollBarLineButtonForeground}" Geometry="F1 M16,16z M0,0z M7.247,4.86L2.451,10.341C1.885,10.988,2.345,12,3.204,12L12.796,12A1,1,0,0,0,13.549,10.341L8.753,4.861A1,1,0,0,0,7.247,4.861z" />
+                                        </DrawingGroup>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </Image.Source>
+                        </Image>
+                    </Button>
+                    <Track 
+                        
+        Name="PART_Track"
+        Grid.Row="1"
+        IsDirectionReversed="true">
+                        <Track.DecreaseRepeatButton>
+                            <RepeatButton 
+            Style="{StaticResource ScrollBarPageButton}"
+            Command="ScrollBar.PageUpCommand" />
+                        </Track.DecreaseRepeatButton>
+                        <Track.Thumb>
+                            <Thumb 
+            Style="{StaticResource ScrollBarThumb}" 
+            Margin="3,0,3,0"  
+            BorderBrush="Transparent" />
+                        </Track.Thumb>
+                        <Track.IncreaseRepeatButton>
+                            <RepeatButton 
+            Style="{StaticResource ScrollBarPageButton}"
+            Command="ScrollBar.PageDownCommand" />
+                        </Track.IncreaseRepeatButton>
+                    </Track>
+                    <Button 
+        Grid.Row="3" 
+                        Style="{DynamicResource ScrollBarLineButton}"
+        
+        Command="ScrollBar.LineDownCommand">
+                        <Image Width="12"
+                               Height="12"
+                               Margin="2,0,-2,0"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center">
+                            <Image.Source>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                            <GeometryDrawing Brush="{DynamicResource ScrollBarLineButtonForeground}" Geometry="F1 M16,16z M0,0z M7.247,11.14L2.451,5.658C1.885,5.013,2.345,4,3.204,4L12.796,4A1,1,0,0,1,13.549,5.659L8.753,11.139A1,1,0,0,1,7.247,11.139z" />
+                                        </DrawingGroup>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </Image.Source>
+                        </Image>
+                    </Button>
+                </Grid>
+            </ControlTemplate>
+
+            <ControlTemplate x:Key="HorizontalScrollBar" TargetType="{x:Type ScrollBar}">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MaxWidth="18"/>
+                        <ColumnDefinition Width="0.00001*"/>
+                        <ColumnDefinition MaxWidth="18"/>
+                    </Grid.ColumnDefinitions>
+                    <Border
+        Grid.ColumnSpan="3"
+        CornerRadius="2" 
+        Background="Transparent" />
+                    <Button 
+        Grid.Column="0"         
+                        Style="{DynamicResource ScrollBarLineButton}"
+        
+        Command="ScrollBar.LineLeftCommand">
+                        <Image Width="12"
+                               Height="12"
+                               Margin="4,2,-4,-2"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center">
+                            <Image.Source>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                            <GeometryDrawing Brush="{DynamicResource ScrollBarLineButtonForeground}" Geometry="F1 M16,16z M0,0z M3.86,8.753L9.342,13.549C9.988,14.115,11,13.655,11,12.796L11,3.204A1,1,0,0,0,9.341,2.451L3.861,7.247A1,1,0,0,0,3.861,8.753z" />
+                                        </DrawingGroup>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </Image.Source>
+                        </Image>
+                    </Button>
+                    <Track 
+        Name="PART_Track"
+        Grid.Column="1"
+        IsDirectionReversed="False">
+                        <Track.DecreaseRepeatButton>
+                            <RepeatButton 
+            Style="{StaticResource ScrollBarPageButton}"
+            Command="ScrollBar.PageLeftCommand" />
+                        </Track.DecreaseRepeatButton>
+                        <Track.Thumb>
+                            <Thumb 
+            Style="{StaticResource ScrollBarThumb}" 
+            Margin="0,3,0,3"  
+            BorderBrush="Transparent" />
+                        </Track.Thumb>
+                        <Track.IncreaseRepeatButton>
+                            <RepeatButton 
+            Style="{StaticResource ScrollBarPageButton}"
+            Command="ScrollBar.PageRightCommand" />
+                        </Track.IncreaseRepeatButton>
+                    </Track>
+                    <Button 
+                        Style="{DynamicResource ScrollBarLineButton}"
+        Grid.Column="3" 
+        
+        Command="ScrollBar.LineRightCommand">
+                        <Image Width="12"
+                               Height="12"
+                               Margin="0,2,0,-2"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center">
+                            <Image.Source>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                            <GeometryDrawing Brush="{DynamicResource ScrollBarLineButtonForeground}" Geometry="F1 M16,16z M0,0z M12.14,8.753L6.658,13.549C6.012,14.115,5,13.655,5,12.796L5,3.204A1,1,0,0,1,6.659,2.451L12.139,7.247A1,1,0,0,1,12.139,8.753z" />
+                                        </DrawingGroup>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </Image.Source>
+                        </Image>
+                    </Button>
+                </Grid>
+            </ControlTemplate>
+
+            <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="OverridesDefaultStyle" Value="true"/>
+                <Style.Triggers>
+                    <Trigger Property="Orientation" Value="Horizontal">
+                        <Setter Property="Width" Value="Auto"/>
+                        <Setter Property="Height" Value="16" />
+                        <Setter Property="Template" Value="{StaticResource HorizontalScrollBar}" />
+                    </Trigger>
+                    <Trigger Property="Orientation" Value="Vertical">
+                        <Setter Property="Width" Value="16"/>
+                        <Setter Property="Height" Value="Auto" />
+                        <Setter Property="Template" Value="{StaticResource VerticalScrollBar}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

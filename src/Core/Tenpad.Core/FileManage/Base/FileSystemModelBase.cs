@@ -6,11 +6,20 @@ namespace Tenpad.Core
 {
     public abstract class FileSystemModelBase : BaseViewModel, IFileSystemModel, ISelectable
     {
+        private bool _isSelected;
         public FileSystemInfo Info { get; private set; } = null!;
         public string Name { get; set; } = null!;
         public string FullName { get; set; } = null!;
         public FileSystemModelType Type { get; }
-        public bool IsSelected { get; set; }
+        public bool IsSelected 
+        {
+            get => _isSelected;
+            set
+            {
+                _isSelected = value;
+                OnPropertyChanged();
+            }
+        }
 
         protected FileSystemModelBase(FileSystemModelType type)
         {

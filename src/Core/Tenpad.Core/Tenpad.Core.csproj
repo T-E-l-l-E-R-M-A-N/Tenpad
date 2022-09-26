@@ -8,14 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dragablz" Version="0.0.3.234" />
+    <PackageReference Include="gong-wpf-dragdrop" Version="3.2.0" />
     <PackageReference Include="HandyControls" Version="3.4.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.8" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
     <PackageReference Include="Prism.Core" Version="8.1.97" />
     <PackageReference Include="PropertyChanged.Fody" Version="4.0.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Controls\Tenpad.Controls\MuvUi.Controls.csproj" />
+    <ProjectReference Include="..\..\Themes\Tenpad.Light.Theme\MuvUi.Light.Theme.csproj" />
     <ProjectReference Include="..\Tenpad.Database\Tenpad.Database.csproj" />
   </ItemGroup>
 

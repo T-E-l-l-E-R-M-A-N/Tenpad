@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore;
 
 namespace Tenpad.Database
@@ -6,6 +6,7 @@ namespace Tenpad.Database
     public class TenpadDbContext : DbContext
     {
         public DbSet<DataObjectModel> Data { get; set; }
+
         public TenpadDbContext()
         {
 

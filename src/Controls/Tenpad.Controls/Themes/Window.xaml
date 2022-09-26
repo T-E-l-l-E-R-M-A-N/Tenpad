@@ -1,0 +1,80 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:MuvUi.Controls">
+
+    <!--#region Window-->
+
+    <Style x:Key="{x:Type local:Window}" TargetType="{x:Type local:Window}">
+        <Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush2}"/>
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundTextBrush}"/>
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome CaptionHeight="32"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:Window}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <DockPanel LastChildFill="True"
+                                   x:Name="MainView"
+                                   Margin="{TemplateBinding Padding}">
+                            <Border x:Name="PART_Window_NonClientAreaBox"
+                                    Background="{TemplateBinding Background}"
+                                    MinHeight="32"
+                                    DockPanel.Dock="Top">
+                                <DockPanel LastChildFill="True">
+                                    <StackPanel DockPanel.Dock="Right"
+                                                Orientation="Horizontal"
+                                                Height="32"
+                                                TextElement.FontFamily="Segoe MDL2 Assets"
+                                                VerticalAlignment="Top"
+                                                WindowChrome.IsHitTestVisibleInChrome="True">
+                                        <Button x:Name="PART_WindowControlBox_MinimizeButton" Width="46" Content=""
+                                                FontSize="10"
+                                                Style="{DynamicResource WindowControlBoxButtonStyle}"/>
+                                        <Button x:Name="PART_WindowControlBox_ExpandButton" Width="46"
+                                                      FontSize="10"
+                                                      Style="{DynamicResource WindowControlBoxButtonStyle}"/>
+                                        <Button x:Name="PART_WindowControlBox_CloseButton" Width="46" Content=""
+                                                Style="{DynamicResource WindowControlBoxButtonStyle}"/>
+                                    </StackPanel>
+                                    <ContentControl Content="{TemplateBinding NonClientAreaContent}"/>
+                                </DockPanel>
+                            </Border>
+                            <Rectangle Height="1"
+                                       DockPanel.Dock="Top"
+                                       Fill="{DynamicResource AccentBrush}"/>
+                            <ContentPresenter Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              />
+                        </DockPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="True">
+                            <Setter TargetName="PART_WindowControlBox_ExpandButton" Property="Content" Value=""/>
+                        </Trigger>
+                        <Trigger Property="WindowState" Value="Maximized">
+                            <Setter TargetName="MainView" Property="Margin" Value="8"/>
+                            <Setter TargetName="PART_WindowControlBox_ExpandButton" Property="Content" Value=""/>
+                            <Setter TargetName="PART_WindowControlBox_ExpandButton" Property="Background" Value="Transparent"/>
+                            <Setter TargetName="PART_WindowControlBox_ExpandButton" Property="BorderBrush" Value="Transparent"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsActive" Value="False">
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="Foreground" Value="LightGray"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--#endregion-->
+</ResourceDictionary>

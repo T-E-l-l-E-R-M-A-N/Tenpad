@@ -18,7 +18,7 @@ namespace Tenpad.Core
 
         private MainViewModel? _mainViewModel;
         private DefaultTabViewModel? _parentTabItemViewModel;
-
+        private string _newFileName;
         private readonly IPageViewModelFactory _pageViewModelFactory;
         private readonly IFileSystemModelFactory _fileSystemModelFactory;
         private readonly ITabViewModelFactory _tabViewModelFactory;
@@ -35,7 +35,7 @@ namespace Tenpad.Core
 
         public string SaveFileDocumentContent { get; set; }
 
-        //public DirectoryInfo CurrentDirectory { get; set; }
+        public DirectoryViewModel CurrentDirectory { get; set; }
         public IHistory HistoryService { get; set; }
 
         public ObservableCollection<IFileSystemModel> DirectoriesAndFiles { get; set; } =
@@ -43,7 +43,22 @@ namespace Tenpad.Core
 
         public ObservableCollection<ISelectable> SelectedCollection { get; set; } =
             new();
-        public string NewFileName { get; set; }
+        public string NewFileName 
+        { 
+            get => _newFileName;
+            set
+            {
+                if (!Saving)
+                {
+                    foreach(var item in DirectoriesAndFiles)
+                    {
+                        if (item.Name.ToLower() == value.ToLower())
+                            (item as ISelectable).IsSelected = true;
+                    }
+                }
+                _newFileName = value;
+            } 
+        }
 
         #endregion
 
@@ -86,7 +101,16 @@ namespace Tenpad.Core
         {
             if (Saving)
             {
-                File.WriteAllText(NewFileName, DocumentContent.ToString());
+                File.WriteAllText(NewFileName, 
+                    ((_parentTabItemViewModel as DefaultTabViewModel).PreviousPageViewModel as DocumentPageViewModel)
+                    .DocumentContent
+                    .ToString());
+                SelectedCollection.Add
+                    (_fileSystemModelFactory
+                    .GetNewFileSystemModelItem(FileSystemModelType.File, new FileInfo(NewFileName), ISelectableModel_PropertyChanged) as ISelectable);
+                Saving = false;
+                OnOpen();
+                _mainViewModel.StatusText = $"Saved as {NewFileName}";
             }
             else
             {
@@ -184,7 +208,10 @@ namespace Tenpad.Core
             DirectoriesAndFiles.Clear();
             SelectedCollection.Clear();
 
+            CurrentDirectory = directoryViewModel;
             var dir = directoryViewModel.Info as DirectoryInfo;
+
+            _mainViewModel.StatusText = $"Loaded {CurrentDirectory.Name} Folder";
 
             Header = dir.Name;
             Path = dir.FullName;
@@ -192,31 +219,25 @@ namespace Tenpad.Core
 
             foreach (var enumerateDirectory in dir.EnumerateDirectories())
             {
-                Application.Current.Dispatcher.InvokeAsync(() =>
-                {
-                    DirectoriesAndFiles.Add(_fileSystemModelFactory.GetNewFileSystemModelItem(FileSystemModelType.Directory, enumerateDirectory, ISelectableModel_PropertyChanged));
-                }, DispatcherPriority.Background);
+                DirectoriesAndFiles.Add(_fileSystemModelFactory.GetNewFileSystemModelItem(FileSystemModelType.Directory, enumerateDirectory, ISelectableModel_PropertyChanged));
             }
 
             foreach (var enumerateFile in dir.EnumerateFiles())
             {
-                Application.Current.Dispatcher.InvokeAsync(() =>
+                if (enumerateFile.Extension.ToLower() is ".txt" or ".doc" or ".cs" or ".xml" or ".html")
                 {
-                    if (enumerateFile.Extension.ToLower() is ".txt" or ".doc" or ".cs" or ".xml" or ".html")
-                    {
-                        DirectoriesAndFiles.Add(_fileSystemModelFactory.GetNewFileSystemModelItem(FileSystemModelType.File, enumerateFile, ISelectableModel_PropertyChanged));
-                    }
-                }, DispatcherPriority.Background);
+                    DirectoriesAndFiles.Add(_fileSystemModelFactory.GetNewFileSystemModelItem(FileSystemModelType.File, enumerateFile, ISelectableModel_PropertyChanged));
+                }
             }
         }
 
         private void ISelectableModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (sender is ISelectable sel and IFileSystemModel && e.PropertyName == nameof(ISelectable.IsSelected))
+            if (sender is ISelectable sel and IFileSystemModel f && e.PropertyName == nameof(ISelectable.IsSelected))
             {
                 if (Saving)
                 {
-                    if(sender is DirectoryViewModel d)
+                    if (sender is DirectoryViewModel d)
                     {
                         SelectedCollection.Clear();
                         SelectedCollection.Add(sel);
@@ -227,6 +248,10 @@ namespace Tenpad.Core
                     if (sel.IsSelected)
                     {
                         SelectedCollection.Add(sel);
+                        if (f is FileViewModel)
+                        {
+                            NewFileName = f.FullName;
+                        }
                     }
                     else
                     {

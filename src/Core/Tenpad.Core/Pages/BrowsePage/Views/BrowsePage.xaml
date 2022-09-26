@@ -64,7 +64,7 @@
                             </Image>
                         </Button>
                     </StackPanel>
-                    <TextBox Text="{Binding Header}"
+                    <TextBox Text="{Binding NewFileName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              Margin="20,0"
                              Style="{DynamicResource EnterTextBoxStyle}"
                              VerticalContentAlignment="Center"/>
@@ -121,6 +121,8 @@
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem"
                            BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                        
+                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
                         <Setter Property="Width" Value="210"/>
                     </Style>
                 </ListBox.ItemContainerStyle>
@@ -139,6 +141,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
+                            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
                             <Image Margin="8" Source="{Binding ., Converter={valueConverters:FileSystemModelTypeToDrawingImageSourceConverter}}">
                             </Image>
                             <StackPanel Margin="10,0" Grid.Column="1">

@@ -29,7 +29,7 @@ namespace Tenpad.Core.Controls
             
 
         }
-        private ItemsPanelTemplate GetUGItemsPanelTemplate()
+        private ItemsPanelTemplate? GetUGItemsPanelTemplate()
         {
             string xaml = @"<ItemsPanelTemplate 
                                 xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation' 
@@ -38,7 +38,7 @@ namespace Tenpad.Core.Controls
                     </ItemsPanelTemplate>";
             return XamlReader.Parse(xaml) as ItemsPanelTemplate;
         }
-        private ItemsPanelTemplate GetItemsPanelTemplate()
+        private ItemsPanelTemplate? GetItemsPanelTemplate()
         {
             string xaml = @"<ItemsPanelTemplate 
                                 xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation' 

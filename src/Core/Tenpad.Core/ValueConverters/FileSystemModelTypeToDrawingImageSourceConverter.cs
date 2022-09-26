@@ -21,13 +21,13 @@ namespace Tenpad.Core.ValueConverters
                     FileSystemModelType.Directory => Application.Current.FindResource("DirectoryIconDrawingImage") as DrawingImage,
                     FileSystemModelType.File => Application.Current.FindResource(
                         (model as FileViewModel).Extension switch
-                    {
-                        ".CS" => "CSIconDrawingImage",
-                        ".TXT" => "TXTIconDrawingImage",
-                        ".DOC" => "DOCIconDrawingImage",
-                        ".HTM" or ".HTML" => "HTMIconDrawingImage",
-                        ".XML" => "XMLIconDrawingImage",
-                    }) as DrawingImage,
+                        {
+                            ".CS" => "CSIconDrawingImage",
+                            ".TXT" => "TXTIconDrawingImage",
+                            ".DOC" => "DOCIconDrawingImage",
+                            ".HTM" or ".HTML" => "HTMIconDrawingImage",
+                            ".XML" => "XMLIconDrawingImage",
+                        }) as DrawingImage,
                 };
             }
             return drawing;

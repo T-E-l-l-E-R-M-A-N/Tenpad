@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using Prism.Commands;
 using Tenpad.Core.Factory;
+using Tenpad.Core.Services;
 using Tenpad.Database;
 
 namespace Tenpad.Core
@@ -21,13 +23,31 @@ namespace Tenpad.Core
         private readonly Random rand = new Random();
 
         private string LocalTenpadUserDataDirectoryPath;
+        private string documentContent;
 
         #endregion
 
         #region Public Properties
 
         public FileViewModel ActiveDocument { get; set; }
-        public string DocumentContent { get; set; }
+        public string DocumentContent 
+        { 
+            get => documentContent;
+            set { documentContent = value;
+                if(_mainViewModel is MainViewModel mvm && mvm.MenuService is MenuServiceImpl impl)
+                {
+                    impl.OpenCommand?.RaiseCanExecuteChanged();
+                    impl.SaveAsCommand?.RaiseCanExecuteChanged();
+                    impl.SaveCommand?.RaiseCanExecuteChanged();
+                    mvm.StatusText = $"Writing";
+                }
+                OnPropertyChanged();
+                _mainViewModel.StatusText = $"Ready";
+            }
+        } 
+
+        public ObservableCollection<string> Lines { get; set; } =
+            new();
 
         #endregion
 
@@ -62,7 +82,8 @@ namespace Tenpad.Core
         }
         public void LoadDocument(FileViewModel fileViewModel)
         {
-            
+            Lines.Clear();
+            int i = 1;
             ActiveDocument = fileViewModel;
             try
             {
@@ -71,8 +92,18 @@ namespace Tenpad.Core
                     var reader = new StreamReader(stream);
                     DocumentContent = reader.ReadToEnd();
                 }
-                
-                _parentTabItemViewModel.Header = Header = ActiveDocument.Name;
+
+                foreach (var c in DocumentContent)
+                {
+                    if (c == '\n')
+                    {
+                        Lines.Add(i.ToString());
+                        i++;
+                    }
+                }
+
+                _parentTabItemViewModel.Header = Header = fileViewModel.Name;
+                _mainViewModel.StatusText = $"Documend opened";
             }
             catch (Exception e)
             {
@@ -83,7 +114,7 @@ namespace Tenpad.Core
                 }
                 _parentTabItemViewModel.Header = Header = "Empty | Editor";
             }
-            
+
         }
         public void CreateDocument()
         {
@@ -92,10 +123,11 @@ namespace Tenpad.Core
             DocumentContent = new StreamReader(File.OpenRead($"{LocalTenpadUserDataDirectoryPath}\\{d}_blank_.txt")).ReadToEnd();
             ActiveDocument = _fileSystemModelFactory.GetNewFileSystemModelItem(FileSystemModelType.File, new FileInfo($"{LocalTenpadUserDataDirectoryPath}\\{d}_blank_.txt")) as FileViewModel;
             _parentTabItemViewModel.Header = Header = "Blank Document";
+            _mainViewModel.StatusText = "Created new blank file";
         }
 
         #endregion
 
-        
+
     }
 }

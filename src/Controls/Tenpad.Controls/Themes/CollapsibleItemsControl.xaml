@@ -1,0 +1,102 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:MuvUi.Controls"
+                    xmlns:valueConverters="clr-namespace:MuvUi.Controls.ValueConverters">
+    <Style x:Key="{x:Type local:TabItemsControl}" TargetType="{x:Type local:TabItemsControl}">
+        <Setter Property="Template" >
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:TabItemsControl}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <ItemsPresenter ClipToBounds="True"
+                                            x:Name="PART_Panel"
+                                            />
+
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+
+                                <Menu 
+                                    Visibility="{Binding HasItems,
+                                RelativeSource={RelativeSource AncestorType={x:Type local:TabItemsControl}},
+                                Converter={valueConverters:BoolToVisibilityConverter}}">
+                                    <MenuItem Template="{DynamicResource MenuDotsMenuTemplate}"
+                                              ItemsSource="{TemplateBinding ItemsSource}"
+                                              ItemTemplate="{TemplateBinding ItemTemplate}">
+                                    </MenuItem>
+                                </Menu>
+                            </StackPanel>
+                        </Grid>
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ControlTemplate x:Key="HorizontalCollapsibleItemsControlTemplate" TargetType="{x:Type local:TabItemsControl}">
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel ClipToBounds="True"
+                            x:Name="PART_Panel"
+                            Orientation="Horizontal"
+                            IsItemsHost="True" />
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <ScrollBar Orientation="Horizontal"/>
+                    <Menu 
+                          Visibility="{Binding HasItems,
+                                RelativeSource={RelativeSource AncestorType={x:Type local:TabItemsControl}},
+                                Converter={valueConverters:BoolToVisibilityConverter}}">
+                        <MenuItem Template="{DynamicResource MenuDotsMenuTemplate}"
+                                  ItemsSource="{TemplateBinding ItemsSource}"
+                                  Header="more">
+                        </MenuItem>
+                    </Menu>
+                </StackPanel>
+            </Grid>
+
+        </Border>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="VerticalCollapsibleItemsControlTemplate" TargetType="{x:Type local:TabItemsControl}">
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel ClipToBounds="True"
+                            x:Name="PART_Panel"
+                            Orientation="Vertical"
+                            IsItemsHost="True" />
+
+                <Menu Grid.Row="1"
+                      Visibility="{Binding HasItems,
+                                RelativeSource={RelativeSource AncestorType={x:Type local:TabItemsControl}},
+                                Converter={valueConverters:BoolToVisibilityConverter}}">
+                    <MenuItem ItemsSource="{TemplateBinding ItemsSource}"
+                              Header="more"
+                              >
+                    </MenuItem>
+                </Menu>
+            </Grid>
+
+        </Border>
+    </ControlTemplate>
+</ResourceDictionary>

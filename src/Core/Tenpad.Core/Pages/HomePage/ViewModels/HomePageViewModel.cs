@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Threading;
+using System.ComponentModel;
 using Prism.Commands;
 using Tenpad.Core.Factory;
 using Tenpad.Database;
@@ -87,10 +87,23 @@ namespace Tenpad.Core
 
             foreach (DataObjectModel dataObjectModel in _tenpadDbContext.Data.Where(x => x.Id.StartsWith("system_applocal_tenpad_userdata_data_recent")))
             {
-                RecentDocumentItems.Add(_fileSystemModelFactory.GetNewFileSystemModelItem(FileSystemModelType.File, new FileInfo(dataObjectModel.Content.ToString())) as FileViewModel);
+                RecentDocumentItems.Insert(0, _fileSystemModelFactory.GetNewFileSystemModelItem(FileSystemModelType.File, new FileInfo(dataObjectModel.Content.ToString()), OnSelectRecentFileModel) as FileViewModel);
             }
+
+            _mainViewModel.StatusText = $"Waiting";
         }
 
+        #endregion
+
+        #region Private Events Handlers
+        private void OnSelectRecentFileModel(object s, PropertyChangedEventArgs e)
+        {
+            var p =
+                _pageViewModelFactory.GetDocumentPageViewModel(_mainViewModel, _parentTabItemViewModel) as
+                    DocumentPageViewModel;
+            p.LoadDocument(s as FileViewModel);
+            _parentTabItemViewModel.NavigateToPage(p);
+        }
         #endregion
     }
 }

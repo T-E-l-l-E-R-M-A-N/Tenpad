@@ -2,26 +2,39 @@
 
 namespace Tenpad.Core
 {
-    public class TabItemViewModelBase : BaseViewModel, ITabItemViewModel, ISelectable
+    public abstract class PageViewModelBase : BaseViewModel, IPageViewModel
     {
         #region PRivate Fields
         private IMenuService _menuService;
         #endregion
-        public string? Header { get; set; }
-        public TabType Type { get; set; }
 
-        public bool IsSelected { get; set; }
-        public TabItemViewModelBase(TabType type)
+        #region Public Properties
+
+        public string? Header { get; set; }
+        public PageType Type { get; set; }
+
+        #endregion
+
+        #region Constructor
+        protected PageViewModelBase(PageType type)
         {
             Type = type;
             _menuService = IoC.Resolve<IMenuService>();
 
-            PropertyChanged += TabVmBased_PropertyChanged;
+            PropertyChanged += PageViewModelBased_PropertyChanged;
         }
+
+        #endregion
+
+        #region Public Methods
+
+        public abstract void Init(MainViewModel mainViewModel, ITabItemViewModel tabItemViewModel);
+
+        #endregion
 
         #region Private Events Handlers
 
-        private void TabVmBased_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void PageViewModelBased_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             (_menuService as MenuServiceImpl).OpenCommand?.RaiseCanExecuteChanged();
             (_menuService as MenuServiceImpl).SaveAsCommand?.RaiseCanExecuteChanged();

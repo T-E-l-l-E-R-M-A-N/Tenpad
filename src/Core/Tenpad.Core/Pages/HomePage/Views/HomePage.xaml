@@ -5,138 +5,124 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Tenpad.Core.Views"
              xmlns:valueConverters="clr-namespace:Tenpad.Core.ValueConverters"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              Background="Transparent"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Border Height="90"
-                Background="#55555555"
-                >
-            <DockPanel LastChildFill="True">
-
-                
-                <StackPanel VerticalAlignment="Center"
-                            Margin="10,0"
-                            >
-                    <TextBlock Text="Tenpad"
-                               Foreground="#FFFFFF"
-                               FontSize="32"/>
-                    <TextBlock Text="Create a new Document or open from your storage or select from recent"
-                               Foreground="#FFFFFF"
+    <UniformGrid
+               Background="{DynamicResource BackgroundBrush}">
+        <Border Margin="0,1,0,0">
+            <DockPanel LastChildFill="True"
+                       Margin="1,0">
+                <Border 
+                        Height="70"
+                        DockPanel.Dock="Top">
+                    <TextBlock FontSize="32"
+                               VerticalAlignment="Center"
+                               Margin="10,0"
+                               FontWeight="Light"
+                               Text="{Binding WelcomeText}"
+                               Foreground="{DynamicResource HomePageHeaderForegroundTextBrush}"/>
+                </Border>
+                <Border Background="{DynamicResource BackgroundBrush}">
+                    <TextBlock Foreground="{DynamicResource ForegroundTextBrush}"
+                               FontSize="12"
                                TextWrapping="Wrap"
-                               FontSize="12"/>
-                </StackPanel>
+                               Margin="10,0"
+                               Text="Get started with creating new document or open your existing document"/>
+                </Border>
             </DockPanel>
         </Border>
-        <Border Grid.Row="1"
-                MaxWidth="720"
-                Opacity="0.5"
-                Margin="0,10">
-            <Grid>
-                <Rectangle Fill="#000000">
-                    <Rectangle.Effect>
-                        <BlurEffect Radius="50"/>
-                    </Rectangle.Effect>
-                </Rectangle>
-                <Border Background="#A9FFFFFF"
-                        Margin="10">
-                    <DockPanel LastChildFill="True">
-                        <Border Height="50"
-                                DockPanel.Dock="Top"
-                                Background="#55555555">
-                            <DockPanel LastChildFill="True">
-                                <StackPanel VerticalAlignment="Center"
-                            HorizontalAlignment="Right"
-                            DockPanel.Dock="Right"
-                            Orientation="Horizontal"
-                            Margin="0,0,10,0">
-                                    <Button Width="40"
-                            Height="40"
-                            BorderThickness="1"
-                            BorderBrush="#88222222"
-                            Command="{Binding OpenBrowseCommand}">
-                                        <Image Margin="5">
-                                            <Image.Source>
-                                                <DrawingImage >
-                                                    <DrawingImage.Drawing>
-                                                        <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
-                                                            <DrawingGroup.Transform>
-                                                                <TranslateTransform X="0" Y="7.9891151472111233E-07" />
-                                                            </DrawingGroup.Transform>
-                                                            <GeometryDrawing Brush="#88222222" Geometry="F1 M16,16z M0,0z M1,3.5A1.5,1.5,0,0,1,2.5,2L5.264,2C6.222,2 7.024,2.56 7.575,3.184 7.985,3.648 8.48,4 9,4L13.5,4A1.5,1.5,0,0,1,15,5.5L15,12.5A1.5,1.5,0,0,1,13.5,14L2.5,14A1.5,1.5,0,0,1,1,12.5L1,3.5z M2.5,3A0.5,0.5,0,0,0,2,3.5L2,6 14,6 14,5.5A0.5,0.5,0,0,0,13.5,5L9,5C8.036,5 7.29,4.371 6.826,3.846 6.374,3.334 5.82,3 5.264,3L2.5,3z M14,7L2,7 2,12.5A0.5,0.5,0,0,0,2.5,13L13.5,13A0.5,0.5,0,0,0,14,12.5L14,7z" />
-                                                        </DrawingGroup>
-                                                    </DrawingImage.Drawing>
-                                                </DrawingImage>
-                                            </Image.Source>
-                                        </Image>
-                                    </Button>
-                                    <Button Width="40"
-                            Height="40"
-                            Margin="5,0,0,0"
-                            BorderThickness="1"
-                            BorderBrush="#88222222"
-                            Command="{Binding CreateDocCommand}">
-                                        <Image Margin="5">
-                                            <Image.Source>
-                                                <DrawingImage >
-                                                    <DrawingImage.Drawing>
-                                                        <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
-                                                            <DrawingGroup.Transform>
-                                                                <TranslateTransform X="0" Y="7.9891151472111233E-07" />
-                                                            </DrawingGroup.Transform>
-                                                            <GeometryDrawing Brush="#88222222" Geometry="F1 M16,16z M0,0z M8,15A7,7,0,1,1,8,1A7,7,0,0,1,8,15z M8,16A8,8,0,1,0,8,0A8,8,0,0,0,8,16z" />
-                                                            <GeometryDrawing Brush="#88222222" Geometry="F1 M16,16z M0,0z M8,4A0.5,0.5,0,0,1,8.5,4.5L8.5,7.5 11.5,7.5A0.5,0.5,0,0,1,11.5,8.5L8.5,8.5 8.5,11.5A0.5,0.5,0,0,1,7.5,11.5L7.5,8.5 4.5,8.5A0.5,0.5,0,0,1,4.5,7.5L7.5,7.5 7.5,4.5A0.5,0.5,0,0,1,8,4z" />
-                                                        </DrawingGroup>
-                                                    </DrawingImage.Drawing>
-                                                </DrawingImage>
-                                            </Image.Source>
-                                        </Image>
-                                    </Button>
-                                </StackPanel>
-                                <TextBlock Foreground="#88222222"
-                                           Text="Recent Documents"
-                                           VerticalAlignment="Center"
-                                           Margin="10,0"
-                                           FontSize="24"
-                                />
-                            </DockPanel>
-                        </Border>
-                        <ListBox BorderThickness="0"
-                                 Margin="2"
-                                 Background="Transparent"
-                                 ItemsSource="{Binding RecentDocumentItems}">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid Height="67">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <Image Margin="8" Source="{Binding ., Converter={valueConverters:FileSystemModelTypeToDrawingImageSourceConverter}}">
-                                        </Image>
-                                        <StackPanel Margin="10,0" Grid.Column="1">
-                                            <TextBlock Grid.Row="1" Margin="0,5,0,0"
-                                                       TextWrapping="Wrap"
-                                                       Text="{Binding Name}"/>
-                                            <TextBlock Grid.Row="2" Margin="0,5,0,0"
-                                                       Text="{Binding FullName}"
-                                                       Opacity="0.5"
-                                                       FontSize="10"/><TextBlock Grid.Row="2" Margin="0,5,0,0"
-                                                       Text="{Binding Type}"
-                                                       Opacity="0.5"
-                                                       FontSize="10"/>
-                                        </StackPanel>
-                                    </Grid>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </DockPanel>
+        <Border Margin="0,1,0,0"
+                >
+            <DockPanel LastChildFill="True"
+                       Margin="1,0">
+                <Border 
+                        Height="70"
+                        DockPanel.Dock="Top">
+                    <TextBlock FontSize="32"
+                               VerticalAlignment="Center"
+                               Margin="10,0"
+                               FontWeight="Light"
+                               Text="Recent"
+                               Foreground="{DynamicResource HomePageHeaderForegroundTextBrush}"/>
                 </Border>
-            </Grid>
+                <Border Background="{DynamicResource BackgroundBrush}">
+                    <ListBox Background="{x:Null}" BorderThickness="0" ItemsSource="{Binding RecentDocumentItems}">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem"
+                           BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                                <Setter Property="Width" Value="210"/>
+                                <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="0,10,0,0">
+                                    <Image Width="32"
+                                           Height="32"
+                                           Margin="5,0"
+                                           Source="{Binding ., Converter={valueConverters:FileSystemModelTypeToDrawingImageSourceConverter}}">
+
+                                    </Image>
+                                    <StackPanel>
+                                        <TextBlock Foreground="{DynamicResource ForegroundTextBrush}"
+                                                   FontSize="14"
+                                                   Text="{Binding Name}"/>
+                                        <TextBlock Foreground="Gray"
+                                                   FontSize="10"
+                                                   Margin="0,5,0,0"
+                                                   Text="{Binding Info.LastWriteTime}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ListBox>
+                </Border>
+            </DockPanel>
         </Border>
-    </Grid>
+        <Border Margin="0,1,0,0">
+            <DockPanel LastChildFill="True"
+                       Margin="1,0">
+                <Border 
+                        Height="70"
+                        DockPanel.Dock="Top">
+                    <TextBlock FontSize="32"
+                               VerticalAlignment="Center"
+                               Margin="10,0"
+                               FontWeight="Light"
+                               Text="Get Started"
+                               Foreground="{DynamicResource HomePageHeaderForegroundTextBrush}"/>
+                </Border>
+                <Border Background="{DynamicResource BackgroundBrush}">
+                    <StackPanel>
+                        <TextBlock Foreground="{DynamicResource AccentBrush2}"
+                                   FontSize="12"
+                                   TextDecorations="Underline"
+                                   Text="Create new Document..."
+                                   Cursor="Hand">
+                            <b:Interaction.Triggers>
+                                <b:EventTrigger EventName="MouseDown">
+                                    <b:InvokeCommandAction Command="{Binding CreateDocCommand}"/>
+                                </b:EventTrigger>
+                            </b:Interaction.Triggers>
+                        </TextBlock>
+                        <TextBlock Foreground="{DynamicResource AccentBrush2}"
+                                   FontSize="12"
+                                   TextDecorations="Underline"
+                                   Margin="0,10,0,0"
+                                   Text="Open existing Document..."
+                                   Cursor="Hand">
+                            <b:Interaction.Triggers>
+                                <b:EventTrigger EventName="MouseDown">
+                                    <b:InvokeCommandAction Command="{Binding OpenBrowseCommand}"/>
+                                </b:EventTrigger>
+                            </b:Interaction.Triggers>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+            </DockPanel>
+        </Border>
+    </UniformGrid>
 </UserControl>
